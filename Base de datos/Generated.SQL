@@ -1,0 +1,278 @@
+﻿/*
+Created: 1/03/2021
+Modified: 11/04/2021
+Model: Microsoft SQL Server 2017
+Database: MS SQL Server 2017
+*/
+
+
+-- Create tables section -------------------------------------------------
+
+-- Table custumer
+
+CREATE TABLE [custumer]
+(
+ [uuidCustumer] Varchar(36) NOT NULL,
+ [firstName] Varchar(128) NOT NULL,
+ [lastName] Varchar(128) NOT NULL,
+ [address] Varchar(64) NOT NULL,
+ [phone] Varchar(16) NOT NULL
+)
+go
+
+-- Add keys for table custumer
+
+ALTER TABLE [custumer] ADD CONSTRAINT [PK_custumer] PRIMARY KEY ([uuidCustumer])
+go
+
+-- Table provider
+
+CREATE TABLE [provider]
+(
+ [uuidProvider] Varchar(36) NOT NULL,
+ [businessName] Varchar(128) NOT NULL,
+ [phone] Varchar(16) NOT NULL,
+ [bankAccount] Varchar(36) NOT NULL,
+ [address] Varchar(128) NOT NULL
+)
+go
+
+-- Add keys for table provider
+
+ALTER TABLE [provider] ADD CONSTRAINT [PK_provider] PRIMARY KEY ([uuidProvider])
+go
+
+-- Table product
+
+CREATE TABLE [product]
+(
+ [uuidProduct] Varchar(32) NOT NULL,
+ [product] Varchar(128) NOT NULL,
+ [description] Varchar(32) NOT NULL,
+ [price] Decimal(10,2) NOT NULL,
+ [stock] Int NOT NULL
+)
+go
+
+-- Add keys for table product
+
+ALTER TABLE [product] ADD CONSTRAINT [PK_product] PRIMARY KEY ([uuidProduct])
+go
+
+-- Table car
+
+CREATE TABLE [car]
+(
+ [uuidCar] Varchar(36) NOT NULL,
+ [uuidBrand] Varchar(36) NULL,
+ [uuidLine] Varchar(36) NULL,
+ [uuidCustumer] Varchar(36) NULL,
+ [plate] Varchar(16) NOT NULL,
+ [year] Int NOT NULL,
+ [color] Varchar(32) NOT NULL,
+ [status] Bit DEFAULT 0 NOT NULL
+)
+go
+
+-- Create indexes for table car
+
+CREATE INDEX [IX_Relationship16] ON [car] ([uuidBrand])
+go
+
+CREATE INDEX [IX_Relationship17] ON [car] ([uuidLine])
+go
+
+CREATE INDEX [IX_Relationship19] ON [car] ([uuidCustumer])
+go
+
+-- Add keys for table car
+
+ALTER TABLE [car] ADD CONSTRAINT [PK_car] PRIMARY KEY ([uuidCar])
+go
+
+-- Table mechanic
+
+CREATE TABLE [mechanic]
+(
+ [uuidMechanic] Varchar(32) NOT NULL,
+ [firstName] Varchar(32) NOT NULL,
+ [lastName] Varchar(32) NOT NULL,
+ [phone] Varchar(16) NOT NULL,
+ [checkBonus] Bit DEFAULT 1 NOT NULL
+)
+go
+
+-- Add keys for table mechanic
+
+ALTER TABLE [mechanic] ADD CONSTRAINT [PK_mechanic] PRIMARY KEY ([uuidMechanic])
+go
+
+-- Table workLog
+
+CREATE TABLE [workLog]
+(
+ [uuidWorkKog] Varchar(32) NOT NULL,
+ [uuidMechanic] Varchar(32) NULL,
+ [uuidCar] Varchar(36) NULL,
+ [uuidProduct] Varchar(32) NULL,
+ [description] Varchar(256) NOT NULL,
+ [price] Decimal(10,2) NOT NULL,
+ [amountProduct] Int NOT NULL
+)
+go
+
+-- Create indexes for table workLog
+
+CREATE INDEX [IX_Relationship28] ON [workLog] ([uuidMechanic])
+go
+
+CREATE INDEX [IX_Relationship29] ON [workLog] ([uuidCar])
+go
+
+CREATE INDEX [IX_Relationship30] ON [workLog] ([uuidProduct])
+go
+
+-- Add keys for table workLog
+
+ALTER TABLE [workLog] ADD CONSTRAINT [PK_workLog] PRIMARY KEY ([uuidWorkKog])
+go
+
+-- Table brand
+
+CREATE TABLE [brand]
+(
+ [uuidBrand] Varchar(36) NOT NULL,
+ [brand] Varchar(36) NOT NULL
+)
+go
+
+-- Add keys for table brand
+
+ALTER TABLE [brand] ADD CONSTRAINT [PK_brand] PRIMARY KEY ([uuidBrand])
+go
+
+-- Table line
+
+CREATE TABLE [line]
+(
+ [uuidLine] Varchar(36) NOT NULL,
+ [uuidBrand] Varchar(36) NULL,
+ [line] Varchar(36) NOT NULL
+)
+go
+
+-- Create indexes for table line
+
+CREATE INDEX [IX_Relationship14] ON [line] ([uuidBrand])
+go
+
+-- Add keys for table line
+
+ALTER TABLE [line] ADD CONSTRAINT [PK_line] PRIMARY KEY ([uuidLine])
+go
+
+-- Table shoppingLog
+
+CREATE TABLE [shoppingLog]
+(
+ [uuidShoppingLog] Varchar(32) NOT NULL,
+ [uuidProvider] Varchar(36) NULL,
+ [uuidProduct] Varchar(32) NULL,
+ [entryDate] Datetime NOT NULL,
+ [price] Decimal(10,2) NOT NULL,
+ [amount] Int NOT NULL
+)
+go
+
+-- Create indexes for table shoppingLog
+
+CREATE INDEX [IX_Relationship21] ON [shoppingLog] ([uuidProvider])
+go
+
+CREATE INDEX [IX_Relationship22] ON [shoppingLog] ([uuidProduct])
+go
+
+-- Add keys for table shoppingLog
+
+ALTER TABLE [shoppingLog] ADD CONSTRAINT [PK_shoppingLog] PRIMARY KEY ([uuidShoppingLog])
+go
+
+-- Table jobAssigment
+
+CREATE TABLE [jobAssigment]
+(
+ [uuidMechanic] Varchar(32) NOT NULL,
+ [uuidCar] Varchar(36) NOT NULL,
+ [entryDate] Date NOT NULL,
+ [departureDate] Date NULL,
+ [nextService] Bit DEFAULT 0 NULL,
+ [dateNextService] Datetime NULL,
+ [mileage] Varchar(8) NULL,
+ [bonus] Decimal(10,2) NULL
+)
+go
+
+-- Add keys for table jobAssigment
+
+ALTER TABLE [jobAssigment] ADD CONSTRAINT [PK_jobAssigment] PRIMARY KEY ([uuidMechanic],[uuidCar])
+go
+
+-- Create foreign keys (relationships) section ------------------------------------------------- 
+
+
+ALTER TABLE [line] ADD CONSTRAINT [Relationship14] FOREIGN KEY ([uuidBrand]) REFERENCES [brand] ([uuidBrand]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [car] ADD CONSTRAINT [Relationship16] FOREIGN KEY ([uuidBrand]) REFERENCES [brand] ([uuidBrand]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [car] ADD CONSTRAINT [Relationship17] FOREIGN KEY ([uuidLine]) REFERENCES [line] ([uuidLine]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [car] ADD CONSTRAINT [Relationship19] FOREIGN KEY ([uuidCustumer]) REFERENCES [custumer] ([uuidCustumer]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [shoppingLog] ADD CONSTRAINT [Relationship21] FOREIGN KEY ([uuidProvider]) REFERENCES [provider] ([uuidProvider]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [shoppingLog] ADD CONSTRAINT [Relationship22] FOREIGN KEY ([uuidProduct]) REFERENCES [product] ([uuidProduct]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [jobAssigment] ADD CONSTRAINT [Relationship25] FOREIGN KEY ([uuidMechanic]) REFERENCES [mechanic] ([uuidMechanic]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [jobAssigment] ADD CONSTRAINT [Relationship27] FOREIGN KEY ([uuidCar]) REFERENCES [car] ([uuidCar]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [workLog] ADD CONSTRAINT [Relationship28] FOREIGN KEY ([uuidMechanic]) REFERENCES [mechanic] ([uuidMechanic]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [workLog] ADD CONSTRAINT [Relationship29] FOREIGN KEY ([uuidCar]) REFERENCES [car] ([uuidCar]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+ALTER TABLE [workLog] ADD CONSTRAINT [Relationship30] FOREIGN KEY ([uuidProduct]) REFERENCES [product] ([uuidProduct]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
+
