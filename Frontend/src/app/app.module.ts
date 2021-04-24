@@ -19,6 +19,12 @@ import { CLientesComponent } from './components/clientes/clientes.component';
 import { FinanzasComponent } from './components/finanzas/finanzas.component';
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
 import { InventarioComponent } from './components/inventario/inventario.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { LoginComponent } from './public/login/login.component';
+import { AddClientComponent } from './components/add-client/add-client.component';
+import { NewOrdenComponent } from './components/new-orden/new-orden.component';
 
 
 
@@ -31,6 +37,10 @@ import { InventarioComponent } from './components/inventario/inventario.componen
     FinanzasComponent,
     ProveedoresComponent,
     InventarioComponent,
+    LoginComponent,
+    AddClientComponent,
+    NewOrdenComponent,
+
 
 
   ],
@@ -47,6 +57,9 @@ import { InventarioComponent } from './components/inventario/inventario.componen
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
