@@ -1,6 +1,6 @@
-﻿/*
+/*
 Created: 1/03/2021
-Modified: 11/04/2021
+Modified: 28/08/2021
 Model: Microsoft SQL Server 2017
 Database: MS SQL Server 2017
 */
@@ -46,7 +46,7 @@ go
 
 CREATE TABLE [product]
 (
- [uuidProduct] Varchar(32) NOT NULL,
+ [uuidProduct] Varchar(36) NOT NULL,
  [product] Varchar(128) NOT NULL,
  [description] Varchar(32) NOT NULL,
  [price] Decimal(10,2) NOT NULL,
@@ -94,7 +94,7 @@ go
 
 CREATE TABLE [mechanic]
 (
- [uuidMechanic] Varchar(32) NOT NULL,
+ [uuidMechanic] Varchar(36) NOT NULL,
  [firstName] Varchar(32) NOT NULL,
  [lastName] Varchar(32) NOT NULL,
  [phone] Varchar(16) NOT NULL,
@@ -111,10 +111,10 @@ go
 
 CREATE TABLE [workLog]
 (
- [uuidWorkKog] Varchar(32) NOT NULL,
- [uuidMechanic] Varchar(32) NULL,
+ [uuidWorkKog] Varchar(36) NOT NULL,
+ [uuidMechanic] Varchar(36) NULL,
  [uuidCar] Varchar(36) NULL,
- [uuidProduct] Varchar(32) NULL,
+ [uuidProduct] Varchar(36) NULL,
  [description] Varchar(256) NOT NULL,
  [price] Decimal(10,2) NOT NULL,
  [amountProduct] Int NOT NULL
@@ -175,9 +175,9 @@ go
 
 CREATE TABLE [shoppingLog]
 (
- [uuidShoppingLog] Varchar(32) NOT NULL,
+ [uuidShoppingLog] Varchar(36) NOT NULL,
  [uuidProvider] Varchar(36) NULL,
- [uuidProduct] Varchar(32) NULL,
+ [uuidProduct] Varchar(36) NULL,
  [entryDate] Datetime NOT NULL,
  [price] Decimal(10,2) NOT NULL,
  [amount] Int NOT NULL
@@ -201,7 +201,7 @@ go
 
 CREATE TABLE [jobAssigment]
 (
- [uuidMechanic] Varchar(32) NOT NULL,
+ [uuidMechanic] Varchar(36) NOT NULL,
  [uuidCar] Varchar(36) NOT NULL,
  [entryDate] Date NOT NULL,
  [departureDate] Date NULL,
@@ -215,6 +215,23 @@ go
 -- Add keys for table jobAssigment
 
 ALTER TABLE [jobAssigment] ADD CONSTRAINT [PK_jobAssigment] PRIMARY KEY ([uuidMechanic],[uuidCar])
+go
+
+-- Table UserSystem
+
+CREATE TABLE [UserSystem]
+(
+ [uuidUser] Varchar(36) NOT NULL,
+ [firstname] Varchar(32) NOT NULL,
+ [lastName] Varchar(32) NOT NULL,
+ [usuario] Varchar(32) NOT NULL,
+ [password] Varchar(256) NOT NULL
+)
+go
+
+-- Add keys for table UserSystem
+
+ALTER TABLE [UserSystem] ADD CONSTRAINT [PK_UserSystem] PRIMARY KEY ([uuidUser])
 go
 
 -- Create foreign keys (relationships) section ------------------------------------------------- 
@@ -272,7 +289,3 @@ go
 
 ALTER TABLE [workLog] ADD CONSTRAINT [Relationship30] FOREIGN KEY ([uuidProduct]) REFERENCES [product] ([uuidProduct]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
-
-
-
-
