@@ -14,7 +14,7 @@ const ControllerShoppingLog = require("../../Controller/administrador/Controller
 const route = express.Router();
 
 route.use("/provider", ControllerProvider.ControllerProvider);
-route.use("/mechanic", ControllerMechanic.ControllerProvider);
+route.use("/mechanic", ControllerMechanic.ControllerMechanic);
 route.use("/UserSystem", ControllerUserSystem.ControllerUserSystem);
 route.use("/custumer", ControllerCustumer.ControllerCustumer);
 route.use("/car", ControllerCar.ControllerCar);
