@@ -18,7 +18,7 @@ const routes: Routes = [
   {path:'orden-de-trabajo',component:OrdenDeTrabajoComponent},
   {path:'proveedores',component:ProveedoresComponent},
   {path:'finanzas',component:FinanzasComponent},
-  {path:'inventario',component:InventarioComponent},
+  {path:'product',component:InventarioComponent},
   {path:'nav',component:NavComponent},
   {path:'add-client',component:AddClientComponent},
   {path:'newOrden',component:NewOrdenComponent},
