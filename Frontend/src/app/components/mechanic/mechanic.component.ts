@@ -1,26 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { OrdenTrabajoService } from 'src/app/services/ordenTrabajo/orden-trabajo.service';
+import { MechanicService } from 'src/app/services/mechanic/mechanic.service';
 
 @Component({
-  selector: 'app-orden-de-trabajo',
-  templateUrl: './orden-de-trabajo.component.html',
-  styleUrls: ['./orden-de-trabajo.component.css']
+  selector: 'app-mechanic',
+  templateUrl: './mechanic.component.html',
+  styleUrls: ['./mechanic.component.css']
 })
-export class OrdenDeTrabajoComponent implements OnInit {
+export class MechanicComponent implements OnInit {
 
   dataSource: any;
   mode = "Guardar";
   form = {
-    uuidWorkKog: "",
     uuidMechanic: "",
-    uuidCar: "",
-    uuidProduct: "",
-    description: "",
-    price: "",
-    amount: ""
+    firstName: "",
+    lastName: "",
+    phone: "",
   }
   constructor(
-    private service: OrdenTrabajoService
+    private service: MechanicService
   ) { }
 
   ngOnInit(): void {
@@ -38,9 +35,9 @@ export class OrdenDeTrabajoComponent implements OnInit {
     )
   }
   ngSubmit(): void {
-    if (this.form.amount !== "" && this.form.price !== "" &&
-      this.form.description !== "" && this.form.uuidProduct !== ""
-      && this.form.uuidCar !== "" && this.form.uuidMechanic !== "") {
+    if (this.form.phone !== "" &&
+      this.form.lastName !== "" &&
+       this.form.firstName !== "") {
       if (this.mode === "Guardar") {
         this.service.create(this.form).subscribe(
           (res) => {
@@ -63,33 +60,27 @@ export class OrdenDeTrabajoComponent implements OnInit {
 
   onReset(): void {
     this.form = {
-      uuidWorkKog: "",
       uuidMechanic: "",
-      uuidCar: "",
-      uuidProduct: "",
-      description: "",
-      price: "",
-      amount: ""
-    }
+      firstName: "",
+      lastName: "",
+      phone: "",
+      }
     this.mode = "Guardar";
   }
   onChangeMode(item: any, mode: string): void {
     if (mode === "Guardar") {
       this.form = {
-        uuidWorkKog: "",
         uuidMechanic: "",
-        uuidCar: "",
-        uuidProduct: "",
-        description: "",
-        price: "",
-        amount: ""
-      }
+        firstName: "",
+        lastName: "",
+        phone: "",
+          }
       this.mode = mode
     } else if (mode === "Editar") {
       this.form = item;
       this.mode = mode
     } else if (mode === "Eliminar") {
-      this.service.delete(item.uuidWorkKog).subscribe(
+      this.service.delete(item.uuidMechanic).subscribe(
         (res) => {
           alert(res.message);
           this.get();

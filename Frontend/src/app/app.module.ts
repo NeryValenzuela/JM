@@ -13,10 +13,10 @@ import { ProveedoresComponent } from './components/proveedores/proveedores.compo
 import { InventarioComponent } from './components/inventario/inventario.component';
 import { LoginComponent } from './public/login/login.component';
 import { AddClientComponent } from './components/add-client/add-client.component';
-import { NewOrdenComponent } from './components/new-orden/new-orden.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InterceptorService } from './services/interceptor/interceptor.service';
+import { MechanicComponent } from './components/mechanic/mechanic.component';
 
 
 
@@ -31,7 +31,7 @@ import { InterceptorService } from './services/interceptor/interceptor.service';
     InventarioComponent,
     LoginComponent,
     AddClientComponent,
-    NewOrdenComponent,
+    MechanicComponent,
 
 
 

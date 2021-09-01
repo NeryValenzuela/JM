@@ -1,4 +1,4 @@
-import { NewOrdenComponent } from './components/new-orden/new-orden.component';
+
 import { AddClientComponent } from './components/add-client/add-client.component';
 import { InventarioComponent } from './components/inventario/inventario.component';
 import { FinanzasComponent } from './components/finanzas/finanzas.component';
@@ -9,6 +9,7 @@ import { LoginComponent } from './public/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NavComponent } from './nav/nav.component';
+import { MechanicComponent } from './components/Mechanic/Mechanic.component';
 
 const routes: Routes = [
 
@@ -21,7 +22,7 @@ const routes: Routes = [
   {path:'product',component:InventarioComponent},
   {path:'nav',component:NavComponent},
   {path:'add-client',component:AddClientComponent},
-  {path:'newOrden',component:NewOrdenComponent},
+  {path:'mechanic',component:MechanicComponent},
 
 ];
 

@@ -19,7 +19,7 @@ route.use("/UserSystem", ControllerUserSystem.ControllerUserSystem);
 route.use("/custumer", ControllerCustumer.ControllerCustumer);
 route.use("/car", ControllerCar.ControllerCar);
 route.use("/product", ControllerProduct.ControllerProduct);
-route.use("/workLog", ControllerWorkLog.ControllerWorkLog);
+route.use("/orden-de-trabajo", ControllerWorkLog.ControllerWorkLog);
 route.use("/line", ControllerLine.ControllerLine);
 route.use("/brand", ControllerBrand.ControllerBrand);
 route.use("/jobAssigment", ControllerJobAssigment.ControllerJobAssigment);
