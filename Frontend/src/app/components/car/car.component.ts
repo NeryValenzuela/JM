@@ -1,29 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { OrdenTrabajoService } from 'src/app/services/ordenTrabajo/orden-trabajo.service';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import { CarService } from 'src/app/services/car/car.service';
 
 @Component({
-  selector: 'app-orden-de-trabajo',
-  templateUrl: './orden-de-trabajo.component.html',
-  styleUrls: ['./orden-de-trabajo.component.css']
+  selector: 'app-car',
+  templateUrl: './car.component.html',
+  styleUrls: ['./car.component.css']
 })
-export class OrdenDeTrabajoComponent implements OnInit {
+export class CarComponent implements OnInit {
+
 
   dataSource: any;
   mode = "Guardar";
   form = {
-    uuidWorkKog: "",
-    uuidMechanic: "",
     uuidCar: "",
-    uuidProduct: "",
-    description: "",
-    price: "",
-    amount: ""
+    uuidBrand: "",
+    uuidLine: "",
+    uuidCustumer: "",
+    plate: "",
+    year: "",
+    color: "",
+    status: ""
   }
-
   constructor(
-    private service: OrdenTrabajoService,
+    private service: CarService
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +32,7 @@ export class OrdenDeTrabajoComponent implements OnInit {
   get(): void {
     this.service.get().subscribe(
       (res) => {
+        console.log(res)
         this.dataSource = res;
       }, (err) => {
         console.log(err)
@@ -40,9 +40,10 @@ export class OrdenDeTrabajoComponent implements OnInit {
     )
   }
   ngSubmit(): void {
-    if (this.form.amount !== "" && this.form.price !== "" &&
-      this.form.description !== "" && this.form.uuidProduct !== ""
-      && this.form.uuidCar !== "" && this.form.uuidMechanic !== "") {
+    if (this.form.status !== "" && this.form.color !== "" &&
+      this.form.year !== "" && this.form.plate !== "" &&
+      this.form.uuidCustumer !== "" && this.form.uuidLine !== "" &&
+      this.form.uuidBrand !== "") {
       if (this.mode === "Guardar") {
         this.service.create(this.form).subscribe(
           (res) => {
@@ -65,23 +66,35 @@ export class OrdenDeTrabajoComponent implements OnInit {
 
   onReset(): void {
     this.form = {
-      uuidWorkKog: "",
-      uuidMechanic: "",
       uuidCar: "",
-      uuidProduct: "",
-      description: "",
-      price: "",
-      amount: ""
+      uuidBrand: "",
+      uuidLine: "",
+      uuidCustumer: "",
+      plate: "",
+      year: "",
+      color: "",
+      status: ""
     }
-   // this.mode = "Guardar";
+    this.mode = "Guardar";
   }
   onChangeMode(item: any, mode: string): void {
-
-    if (mode === "Editar") {
+    if (mode === "Guardar") {
+      this.form = {
+        uuidCar: "",
+        uuidBrand: "",
+        uuidLine: "",
+        uuidCustumer: "",
+        plate: "",
+        year: "",
+        color: "",
+        status: ""
+      }
+      this.mode = mode
+    } else if (mode === "Editar") {
       this.form = item;
       this.mode = mode
     } else if (mode === "Eliminar") {
-      this.service.delete(item.uuidWorkKog).subscribe(
+      this.service.delete(item.uuidCar).subscribe(
         (res) => {
           alert(res.message);
           this.get();

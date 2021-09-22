@@ -15,12 +15,14 @@ export class MechanicComponent implements OnInit {
     firstName: "",
     lastName: "",
     phone: "",
+    checkBonus: false
   }
   constructor(
     private service: MechanicService
   ) { }
 
   ngOnInit(): void {
+    console.log(this.form)
     this.get();
   }
 
@@ -37,8 +39,9 @@ export class MechanicComponent implements OnInit {
   ngSubmit(): void {
     if (this.form.phone !== "" &&
       this.form.lastName !== "" &&
-       this.form.firstName !== "") {
+      this.form.firstName !== "") {
       if (this.mode === "Guardar") {
+        console.log(this.form)
         this.service.create(this.form).subscribe(
           (res) => {
             alert(res.message);
@@ -64,7 +67,8 @@ export class MechanicComponent implements OnInit {
       firstName: "",
       lastName: "",
       phone: "",
-      }
+      checkBonus: false
+    }
     this.mode = "Guardar";
   }
   onChangeMode(item: any, mode: string): void {
@@ -74,7 +78,8 @@ export class MechanicComponent implements OnInit {
         firstName: "",
         lastName: "",
         phone: "",
-          }
+        checkBonus: false
+      }
       this.mode = mode
     } else if (mode === "Editar") {
       this.form = item;

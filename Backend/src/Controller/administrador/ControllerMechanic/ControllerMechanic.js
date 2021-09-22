@@ -22,10 +22,12 @@ route.get("/", (req, res) => {
 });
 route.post("/", (req, res) => {
   const body = req.body;
+
+  console.log(body);
   new mssql.ConnectionPool(connect.config)
     .connect()
     .then((pool) => {
-      return pool.request().query(`EXEC sp_create_mechanic '${body.firstName}','${body.lastName}','${body.phone}','${body.checkBonus}'`);
+      return pool.request().query(`EXEC sp_create_mechanic '${body.firstName}','${body.lastName}','${body.phone}',${body.checkBonus}`);
     })
     .then((fields) => {
       mssql.close();

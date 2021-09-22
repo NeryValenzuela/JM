@@ -1,8 +1,8 @@
 <div class="form-group">
   <div class="row">
     <div class="col">
-      <button type="button" (click)="onChangeMode(null,'Guardar')" data-toggle="modal" data-target="#ModalMechanic"
-        class="btn btn-primary btn-block">Agregar Nuevo Mecanico</button>
+      <button type="button" (click)="onChangeMode(null,'Guardar')" data-toggle="modal" data-target="#ModalLine"
+        class="btn btn-primary btn-block">Agregar Nueva Linea</button>
     </div>
   </div>
 
@@ -13,22 +13,18 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Bonificación V/F</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Linea</th>
             <th scope="col">Editar</th>
             <th scope="col">Eliminar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of dataSource?.message">
-            <th scope="row">{{item.firstName}}</th>
-            <td>{{item.lastName}}</td>
-            <td>{{item.phone}}</td>
-            <td>{{item.checkBonus}}</td>
+            <th scope="row">{{item.brand}}</th>
+            <td>{{item.line}}</td>
             <td><button type="button" (click)="onChangeMode(item,'Editar')" data-toggle="modal"
-                data-target="#ModalMechanic" class="btn btn-warning btn-block">Editar</button></td>
+                data-target="#ModalLine" class="btn btn-warning btn-block">Editar</button></td>
             <td><button type="button" (click)="onChangeMode(item,'Eliminar')"
                 class="btn btn-danger btn-block">Eliminar</button></td>
           </tr>
@@ -40,12 +36,12 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="ModalMechanic" tabindex="-1" role="dialog" aria-labelledby="ModalMechanicLabel"
+<div class="modal fade" id="ModalLine" tabindex="-1" role="dialog" aria-labelledby="ModalLineLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ModalMechanicLabel">{{mode}} Mecanico</h5>
+        <h5 class="modal-title" id="ModalLineLabel">{{mode}} Linea</h5>
         <button type="button" class="close" data-dismiss="modal" ngClass="onReset()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -53,13 +49,13 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <input type="text" name="firstName" class="form-control" placeholder="Nombre" [(ngModel)]="form.firstName">
+            <select [(ngModel)]="form.uuidBrand" name="uuidBrand" class="form-control">
+              <option value="">Seleccione Marca</option>
+              <option [value]="item.uuidBrand" *ngFor="let item of dataSourceBrand?.message">{{item.brand}}</option>
+            </select>
           </div>
           <div class="form-group">
-            <input type="text" name="lastName" class="form-control" placeholder="Apellido" [(ngModel)]="form.lastName">
-          </div>
-          <div class="form-group">
-            <input type="text" name="phone" class="form-control" placeholder="Telefono" [(ngModel)]="form.phone">
+            <input type="text" name="line" class="form-control" placeholder="Linea" [(ngModel)]="form.line">
           </div>
         </form>
       </div>

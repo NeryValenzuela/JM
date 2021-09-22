@@ -1,5 +1,4 @@
 
-import { AddClientComponent } from './components/add-client/add-client.component';
 import { InventarioComponent } from './components/inventario/inventario.component';
 import { FinanzasComponent } from './components/finanzas/finanzas.component';
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
@@ -10,6 +9,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NavComponent } from './nav/nav.component';
 import { MechanicComponent } from './components/Mechanic/Mechanic.component';
+import { WizardOrdenComponent } from './components/wizard-orden/wizard-orden.component';
+import { LineComponent } from './components/line/line.component';
+import { CarComponent } from './components/car/car.component';
+import { BrandComponent } from './components/brand/brand.component';
+import { JobAComponent } from './components/job-a/job-a.component';
+
 
 const routes: Routes = [
 
@@ -21,9 +26,12 @@ const routes: Routes = [
   {path:'finanzas',component:FinanzasComponent},
   {path:'product',component:InventarioComponent},
   {path:'nav',component:NavComponent},
-  {path:'add-client',component:AddClientComponent},
   {path:'mechanic',component:MechanicComponent},
-
+  {path:'wizard',component:WizardOrdenComponent},
+  {path:'line',component:LineComponent},
+  {path:'car',component:CarComponent},
+  {path:'brand',component:BrandComponent},
+  {path:'job',component:JobAComponent},
 ];
 
 @NgModule({
