@@ -141,11 +141,11 @@ export class JobAComponent implements OnInit {
     }
   }
 
-  PrintPDF() {
+  PrintPDF(item) {
     const pdf = new PdfMakeWrapper();
 
     pdf.add(new Txt('Servicios Automotrices JM\n\nDetalle de servicio\n\n').fontSize(20).alignment('center').bold().decoration('underline').end);
-    pdf.add(new QR('Me hace mucha falta socio').alignment('center').fit(200).end)
+    pdf.add(new QR(JSON.stringify(item)).alignment('center').fit(200).end)
     pdf.create().print();
   }
 }

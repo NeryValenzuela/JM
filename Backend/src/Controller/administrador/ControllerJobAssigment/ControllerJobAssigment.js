@@ -26,7 +26,9 @@ route.post("/", (req, res) => {
   new mssql.ConnectionPool(connect.config)
     .connect()
     .then((pool) => {
-      return pool.request().query(`EXEC sp_create_jobAssigment '${body.entryDate}','${body.departureDate}','${body.nextService}','${body.dateNextService}','${body.mileage}',${body.bonus}`);
+      var jo = `EXEC sp_create_jobAssigment '${body.uuidMechanic}','${body.uuidCar}','${body.entryDate}','${body.departureDate}','${body.nextService}','${body.dateNextService}','${body.mileage}',${body.bonus}`
+     console.log(jo)
+      return pool.request().query(jo);
     })
     .then((fields) => {
       mssql.close();
