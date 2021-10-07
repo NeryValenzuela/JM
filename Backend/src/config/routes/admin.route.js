@@ -22,7 +22,7 @@ route.use("/product", ControllerProduct.ControllerProduct);
 route.use("/orden-de-trabajo", ControllerWorkLog.ControllerWorkLog);
 route.use("/line", ControllerLine.ControllerLine);
 route.use("/brand", ControllerBrand.ControllerBrand);
-route.use("/jobAssigment", ControllerJobAssigment.ControllerJobAssigment);
+route.use("/job", ControllerJobAssigment.ControllerJobAssigment);
 route.use("/shoppingLog", ControllerShoppingLog.ControllerShoppingLog);
 
 exports.routerAdmin = route;

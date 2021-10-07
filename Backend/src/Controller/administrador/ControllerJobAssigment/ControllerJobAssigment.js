@@ -22,10 +22,11 @@ route.get("/", (req, res) => {
 });
 route.post("/", (req, res) => {
   const body = req.body;
+  body.bonus = body.bonus == '' ||  body.bonus == undefined ? null:body.bonus
   new mssql.ConnectionPool(connect.config)
     .connect()
     .then((pool) => {
-      return pool.request().query(`EXEC sp_create_jobAssigment '${body.entryDate}','${body.departureDate}','${body.nextService}','${body.dateNextService}','${body.mileage}','${body.bonus}'`);
+      return pool.request().query(`EXEC sp_create_jobAssigment '${body.entryDate}','${body.departureDate}','${body.nextService}','${body.dateNextService}','${body.mileage}',${body.bonus}`);
     })
     .then((fields) => {
       mssql.close();

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, STEP_STATE, THEME } from 'ng-wizard';
 import { of } from 'rxjs';
+import { BrandService } from 'src/app/services/brand/brand.service';
+import { CarService } from 'src/app/services/car/car.service';
 import { CustumerService } from 'src/app/services/custumer/custumer.service';
+import { LineService } from 'src/app/services/line/line.service';
 import { MechanicService } from 'src/app/services/mechanic/mechanic.service';
 import { OrdenTrabajoService } from 'src/app/services/ordenTrabajo/orden-trabajo.service';
 
@@ -29,6 +32,11 @@ export class WizardOrdenComponent implements OnInit {
 
   dataSourceMech: any;
   dataSourceW: any;
+  dataSourceBrand: any;
+  dataSourceLine: any;
+  dataSourceCustumer: any;
+  dataSourceCar: any;
+
   mode = "Guardar";
 
   formWorkLog = {
@@ -52,7 +60,11 @@ export class WizardOrdenComponent implements OnInit {
 
   constructor(private ngWizardService: NgWizardService,
     private serviceMech: MechanicService,
-    private serviceW: OrdenTrabajoService) {
+    private serviceW: OrdenTrabajoService,
+    private serviceCar: CarService,
+    private serviceBrand: BrandService,
+    private serviceLine: LineService,
+    private serviceCustumer: CustumerService) {
   }
 
   ngOnInit() {
@@ -112,6 +124,110 @@ get(): void {
     }
   )
 }
+ //Obtener datos de linea de vehiculo
+ getLine(): void {
+  this.serviceLine.get().subscribe(
+    (res) => {
+      this.dataSourceLine = res;
+      console.log(res)
+    }, (err) => {
+      console.log(err)
+    }
+  )
+}
+///Obtener datos de Marca de vehiculo
+getBrand(): void {
+  this.serviceBrand.get().subscribe(
+    (res) => {
+      this.dataSourceBrand = res;
+      console.log(res)
+    }, (err) => {
+      console.log(err)
+    }
+  )
+}
+ //Obtener datos del cliente
+ getCustumer(): void {
+  this.serviceCustumer.get().subscribe(
+    (res) => {
+      console.log(res)
+      this.dataSourceCustumer = res;
+    }, (err) => {
+      console.log(err)
+    }
+  )
+}
+
+//*Funciones del Carro
+ngSubmitCar(): void {
+  if (this.formCar.status !== "" && this.formCar.color !== "" &&
+    this.formCar.year !== "" && this.formCar.plate !== "" &&
+    this.formCar.uuidCustumer !== "" && this.formCar.uuidLine !== "" &&
+    this.formCar.uuidBrand !== "") {
+    if (this.mode === "Guardar") {
+      this.serviceCar.create(this.formCar).subscribe(
+        (res) => {
+          alert(res.message);
+          this.get();
+        }, (err) => {
+          console.log(err)
+        })
+    } else if (this.mode === "Editar") {
+      this.serviceCar.update(this.formCar).subscribe(
+        (res) => {
+          alert(res.message);
+          this.get();
+        }, (err) => {
+          console.log(err)
+        })
+    }
+  }
+}
+
+onResetCar(): void {
+  this.formCar = {
+    uuidCar: "",
+    uuidBrand: "",
+    uuidLine: "",
+    uuidCustumer: "",
+    plate: "",
+    year: "",
+    color: "",
+    status: ""
+  }
+  this.mode = "Guardar";
+}
+onChangeModeCar(item: any, mode: string): void {
+  if (mode === "Guardar") {
+    this.formCar = {
+      uuidCar: "",
+      uuidBrand: "",
+      uuidLine: "",
+      uuidCustumer: "",
+      plate: "",
+      year: "",
+      color: "",
+      status: ""
+    }
+    this.mode = mode
+  } else if (mode === "Editar") {
+    this.formCar = item;
+    this.mode = mode
+  } else if (mode === "Eliminar") {
+    this.serviceCar.delete(item.uuidCar).subscribe(
+      (res) => {
+        alert(res.message);
+        this.get();
+      }, (err) => {
+        console.log(err)
+      })
+  }
+}
+
+
+
+
+
 
 onChangeMode(item: any, mode: string): void {
   if (mode === 'mechanic') {

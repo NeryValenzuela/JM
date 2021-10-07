@@ -15,7 +15,7 @@ export class CarService {
     return this.httpClient.get<any>(this.URL);
   }
 
-  create(item: any): Observable<any> {
+  create(item: any) {
     return this.httpClient.post<any>(this.URL, item);
   }
 

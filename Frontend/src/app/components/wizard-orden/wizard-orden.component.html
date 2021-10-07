@@ -37,7 +37,7 @@
   <ng-wizard-step [title]="'Vehiculo'" [description]="'Datos del Vehiculo'"
   [canEnter]="isValidTypeBoolean" [canExit]="isValidFunctionReturnsBoolean.bind(this)">
   <span>Paso 2</span>
- <!-- <div class="form-group">
+  <div class="form-group">
     <div class="row">
       <div class="col">
         <button type="button" (click)="onChangeMode(null,'Guardar')" data-toggle="modal" data-target="#ModalCar"
@@ -64,7 +64,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of dataSource?.message">
+            <tr *ngFor="let item of dataSourceCar?.message" >
               <th scope="row">
               {{item.uuidBrand}}</th>
               <td>{{item.uuidLine}}</td>
@@ -86,55 +86,57 @@
   </div>
 
 
-
+  <!-- Modal -->
   <div class="modal fade" id="ModalCar" tabindex="-1" role="dialog" aria-labelledby="ModalCar"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="ModalCarLabel">{{mode}} Carros </h5>
-          <button type="button" class="close" data-dismiss="modal" ngClass="onReset()" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" ngClass="onResetCar()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <form>
             <div class="form-group">
-              <input type="text" name="uuidBrand" class="form-control" placeholder="Marca" [(ngModel)]="formCar.uuidBrand">
+              <select [(ngModel)]="formCar.uuidBrand" name="uuidBrand" class="form-control">
+                <option value="">Seleccione Marca</option>
+                <option [value]="item.uuidBrand" *ngFor="let item of dataSourceBrand?.message">{{item.brand}}</option>
+              </select>
             </div>
             <div class="form-group">
-              <input type="text" name="uuidLine" class="form-control" placeholder="Linea" [(ngModel)]="formCar.uuidLine">
+              <select [(ngModel)]="formCar.uuidLine" name="uuidLine" class="form-control">
+                <option value="">Seleccione Linea</option>
+                <option [value]="item.uuidLine" *ngFor="let item of dataSourceLine?.message">{{item.line}}</option>
+              </select>
             </div>
             <div class="form-group">
-              <input type="text" name="uuidCustumer" class="form-control" placeholder="Cliente" [(ngModel)]="form.uuidCustumer">
+              <select [(ngModel)]="formCar.uuidCustumer" name="uuidCustumer" class="form-control">
+                <option value="">Seleccione el cliente</option>
+                <option [value]="item.uuidCustumer" *ngFor="let item of dataSourceCustumer?.message">{{item.firstName}}</option>
+              </select>
             </div>
             <div class="form-group">
-              <input type="text" name="plate"  class="form-control" placeholder="Placa" [(ngModel)]="form.plate">
+              <input type="text" name="plate"  class="form-control" placeholder="Placa" [(ngModel)]="formCar.plate">
             </div>
             <div class="form-group">
-              <input type="text" name="year"  class="form-control" placeholder="Año" [(ngModel)]="form.year">
+              <input type="text" name="year"  class="form-control" placeholder="Año" [(ngModel)]="formCar.year">
             </div>
             <div class="form-group">
-              <input type="text" name="color"  class="form-control" placeholder="Color" [(ngModel)]="form.color">
+              <input type="text" name="color"  class="form-control" placeholder="Color" [(ngModel)]="formCar.color">
             </div>
-            <div class="form-group">
-              <input type="text" name="status"  class="form-control" placeholder="Status" [(ngModel)]="form.status">
-            </div>
+
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" ngClass="onReset()" data-dismiss="modal">Cerrar</button>
-          <button type="button" (click)="ngSubmit()" class="btn btn-primary">{{mode}}</button>
+          <button type="button" class="btn btn-secondary" ngClass="onResetCar()" data-dismiss="modal">Cerrar</button>
+          <button type="button" (click)="ngSubmitCar()" class="btn btn-primary">{{mode}}</button>
         </div>
       </div>
     </div>
   </div>
 
-
-
-
-
---->
   </ng-wizard-step>
 
   <ng-wizard-step [title]="'Productos'" [description]="'Datos de los productos'">

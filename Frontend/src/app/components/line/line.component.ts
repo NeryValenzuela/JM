@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BrandService } from 'src/app/services/brand/brand.service';
 import { LineService } from 'src/app/services/line/line.service';
 
+import { PdfMakeWrapper, QR, Txt } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+PdfMakeWrapper.setFonts(pdfFonts);
+
 @Component({
   selector: 'app-line',
   templateUrl: './line.component.html',
@@ -30,7 +34,7 @@ export class LineComponent implements OnInit {
     this.serviceBrand.get().subscribe(
       (res) => {
         this.dataSourceBrand = res;
-        console.log(res)
+        //console.log(res)
       }, (err) => {
         console.log(err)
       }
@@ -41,7 +45,7 @@ export class LineComponent implements OnInit {
   get(): void {
     this.service.get().subscribe(
       (res) => {
-        console.log(res)
+       // console.log(res)
         this.dataSource = res;
       }, (err) => {
         console.log(err)
@@ -99,4 +103,15 @@ export class LineComponent implements OnInit {
         })
     }
   }
+
+
+  PrintPDF() {
+    const pdf = new PdfMakeWrapper();
+
+    pdf.add(new Txt('Servicios Automotrices JM\n\nDetalle de servicio\n\n').fontSize(20).alignment('center').bold().decoration('underline').end);
+    pdf.add(new QR('this.dataSource').alignment('center').fit(200).end)
+    pdf.create().print();
+  }
+
+
 }

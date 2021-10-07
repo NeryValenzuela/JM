@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from 'src/app/services/car/car.service';
+import { BrandService } from 'src/app/services/brand/brand.service';
+import { LineService } from 'src/app/services/line/line.service';
+import { CustumerService } from 'src/app/services/custumer/custumer.service';
+
+import { PdfMakeWrapper, QR, Txt } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+PdfMakeWrapper.setFonts(pdfFonts);
 
 @Component({
   selector: 'app-car',
@@ -10,7 +17,12 @@ export class CarComponent implements OnInit {
 
 
   dataSource: any;
+  dataSourceBrand: any;
+  dataSourceLine: any;
+  dataSourceCustumer: any;
+
   mode = "Guardar";
+
   form = {
     uuidCar: "",
     uuidBrand: "",
@@ -22,11 +34,17 @@ export class CarComponent implements OnInit {
     status: ""
   }
   constructor(
-    private service: CarService
+    private service: CarService,
+    private serviceBrand: BrandService,
+    private serviceLine: LineService,
+    private serviceCustumer: CustumerService
   ) { }
 
   ngOnInit(): void {
     this.get();
+    this.getBrand();
+    this.getLine();
+    this.getCustumer();
   }
 
   get(): void {
@@ -39,8 +57,47 @@ export class CarComponent implements OnInit {
       }
     )
   }
+
+  ///Obtener datos de Marca de vehiculo
+  getBrand(): void {
+    this.serviceBrand.get().subscribe(
+      (res) => {
+        this.dataSourceBrand = res;
+        console.log(res)
+      }, (err) => {
+        console.log(err)
+      }
+    )
+  }
+
+  //Obtener datos de linea de vehiculo
+  getLine(): void {
+    this.serviceLine.get().subscribe(
+      (res) => {
+        this.dataSourceLine = res;
+        console.log(res)
+      }, (err) => {
+        console.log(err)
+      }
+    )
+  }
+
+  //Obtener datos del cliente
+  getCustumer(): void {
+    this.serviceCustumer.get().subscribe(
+      (res) => {
+        console.log(res)
+        this.dataSourceCustumer = res;
+      }, (err) => {
+        console.log(err)
+      }
+    )
+  }
+
+
   ngSubmit(): void {
-    if (this.form.status !== "" && this.form.color !== "" &&
+    debugger
+    if (this.form.color !== "" &&
       this.form.year !== "" && this.form.plate !== "" &&
       this.form.uuidCustumer !== "" && this.form.uuidLine !== "" &&
       this.form.uuidBrand !== "") {
@@ -102,5 +159,14 @@ export class CarComponent implements OnInit {
           console.log(err)
         })
     }
+  }
+
+
+  PrintPDF() {
+    const pdf = new PdfMakeWrapper();
+
+    pdf.add(new Txt('Servicios Automotrices JM\n\nDetalle de servicio\n\n').fontSize(20).alignment('center').bold().decoration('underline').end);
+    pdf.add(new QR('Me hace mucha falta socio').alignment('center').fit(200).end)
+    pdf.create().print();
   }
 }

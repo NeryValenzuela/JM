@@ -3,6 +3,10 @@ import { CarService } from 'src/app/services/car/car.service';
 import { JobAService } from 'src/app/services/jobA/job-a.service';
 import { MechanicService } from 'src/app/services/mechanic/mechanic.service';
 
+// Para imprimir y generar codigo QR
+import { PdfMakeWrapper, QR, Txt } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+PdfMakeWrapper.setFonts(pdfFonts);
 @Component({
   selector: 'app-job-a',
   templateUrl: './job-a.component.html',
@@ -49,9 +53,10 @@ export class JobAComponent implements OnInit {
   }
 
   getCar(): void {
+
     this.serviceCar.get().subscribe(
       (res) => {
-        this.dataSourceCar = res;
+        this.dataSourceCar = res.message;
         console.log(res)
       }, (err) => {
         console.log(err)
@@ -62,7 +67,7 @@ export class JobAComponent implements OnInit {
   getMechanic(): void {
     this.serviceMechanic.get().subscribe(
       (res) => {
-        this.dataSourceMechanic = res;
+        this.dataSourceMechanic = res.message;
         console.log(res)
       }, (err) => {
         console.log(err)
@@ -71,9 +76,11 @@ export class JobAComponent implements OnInit {
   }
 
   ngSubmit(): void {
-    if (this.form.bonus !== "" && this.form.mileage !== "" &&
-      this.form.dateNextService !== "" && this.form.nextService !== "" &&
-      this.form.departureDate !== "" && this.form.entryDate !== "") {
+    debugger
+    var en = this.form.mileage !== "" &&
+    this.form.dateNextService !== "" &&
+    this.form.departureDate !== "" && this.form.entryDate !== "";
+    if (en) {
       if (this.mode === "Guardar") {
         this.service.create(this.form).subscribe(
           (res) => {
@@ -132,5 +139,13 @@ export class JobAComponent implements OnInit {
           console.log(err)
         })
     }
+  }
+
+  PrintPDF() {
+    const pdf = new PdfMakeWrapper();
+
+    pdf.add(new Txt('Servicios Automotrices JM\n\nDetalle de servicio\n\n').fontSize(20).alignment('center').bold().decoration('underline').end);
+    pdf.add(new QR('Me hace mucha falta socio').alignment('center').fit(200).end)
+    pdf.create().print();
   }
 }

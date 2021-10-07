@@ -22,10 +22,14 @@ route.get("/", (req, res) => {
 });
 route.post("/", (req, res) => {
   const body = req.body;
+  if(!body.status || body.status == undefined){
+    body.status = false
+  }
+
   new mssql.ConnectionPool(connect.config)
     .connect()
     .then((pool) => {
-      return pool.request().query(`EXEC sp_create_car '${body.uuidBrand}','${body.uuidLine}','${body.uuidCostumer}','${body.plate}','${body.year}','${body.color}','${body.status}'`);
+      return pool.request().query(`EXEC sp_create_car '${body.uuidBrand}','${body.uuidLine}','${body.uuidCustumer}','${body.plate}','${body.year}','${body.color}',0`);
     })
     .then((fields) => {
       mssql.close();
