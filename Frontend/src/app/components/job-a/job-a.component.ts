@@ -4,7 +4,7 @@ import { JobAService } from 'src/app/services/jobA/job-a.service';
 import { MechanicService } from 'src/app/services/mechanic/mechanic.service';
 
 // Para imprimir y generar codigo QR
-import { PdfMakeWrapper, QR, Txt } from 'pdfmake-wrapper';
+import { Img, PdfMakeWrapper, QR, Txt } from 'pdfmake-wrapper';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 PdfMakeWrapper.setFonts(pdfFonts);
 @Component({
@@ -144,8 +144,12 @@ export class JobAComponent implements OnInit {
   PrintPDF(item) {
     const pdf = new PdfMakeWrapper();
 
-    pdf.add(new Txt('Servicios Automotrices JM\n\nDetalle de servicio\n\n').fontSize(20).alignment('center').bold().decoration('underline').end);
+    pdf.header('Comprobante');
+
+    pdf.add(new Txt('Servicios Automotrices JM\nDetalle de servicio\n\n\n\n\n\n').fontSize(20).alignment('center').bold().decoration('underline').end);
     pdf.add(new QR(JSON.stringify(item)).alignment('center').fit(200).end)
+    pdf.add(new Txt('\n\n\n\n\n\n\n\nGracias por tu preferencia\nWhatsapp:38065775\nTel:78224585').fontSize(15).alignment('center').bold().end);
+
     pdf.create().print();
   }
 }

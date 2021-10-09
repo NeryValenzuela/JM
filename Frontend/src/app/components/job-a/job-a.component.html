@@ -20,7 +20,7 @@
             <th scope="col">Proximo Servicio v/f</th>
             <th scope="col">Fecha Proximo Servicio</th>
             <th scope="col">Millage</th>
-            <th scope="col">Ver productos</th>
+            <!-- <th scope="col">Ver productos</th>-->
             <th scope="col">PDF</th>
             <th scope="col">Editar</th>
             <th scope="col">Eliminar</th>
@@ -28,19 +28,19 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of dataSource?.message">
-            <th scope="row">{{item.uuidCar}}</th>
-            <td>{{item.uuidMechanic}}</td>
+            <th scope="row">{{item.brand}} {{item.line}}</th>
+            <td>{{item.firstName}} {{item.lastName}}</td>
             <td>{{item.entryDate}}</td>
             <td>{{item.departureDate}}</td>
             <td>{{item.nextService}}</td>
             <td>{{item.dateNextService}}</td>
             <td>{{item.mileage}}</td>
-            <td>{{item.bonus}}</td>
-            <td><button class="nav-item" >
-              <a class="nav-link" routerLink="workLog"></a>
-            </button></td>
 
-            <button (click)="PrintPDF(item)" class="btn btn-success" >Print PDF</button>
+           <!-- <td><button class="nav-item" >
+              <a class="nav-link" routerLink="workLog"></a>
+            </button></td>-->
+
+            <td><button (click)="PrintPDF(item)" class="btn btn-success" >Print PDF</button></td>
 
             <td><button type="button" (click)="onChangeMode(item,'Editar')" data-toggle="modal"
                 data-target="#ModalJob" class="btn btn-warning btn-block">Editar</button></td>
