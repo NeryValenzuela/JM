@@ -26,7 +26,7 @@ route.post("/", (req, res) => {
   new mssql.ConnectionPool(connect.config)
     .connect()
     .then((pool) => {
-      var jo = `EXEC sp_create_jobAssigment '${body.uuidMechanic}','${body.uuidCar}','${body.entryDate}','${body.departureDate}','${body.nextService}','${body.dateNextService}','${body.mileage}',${body.bonus}`
+      var jo = `EXEC sp_create_jobAssigment '${body.uuidMechanic}','${body.uuidCar}','${body.entryDate}','${body.departureDate}','${body.nextService}','${body.dateNextService}','${body.mileage}'`
      console.log(jo)
       return pool.request().query(jo);
     })
@@ -42,10 +42,12 @@ route.post("/", (req, res) => {
 });
 route.put("/", (req, res) => {
   const body = req.body;
+  console.log("aqui")
+  console.log(body)
   new mssql.ConnectionPool(connect.config)
     .connect()
     .then((pool) => {
-      return pool.request().query(`EXEC sp_update_jobAssigment '${body.uuidMechanic}','${body.uuidCar}','${body.entryDate}','${body.departureDate}','${body.nextService}','${body.dateNextService}','${body.mileage}','${body.bonus}'`);
+      return pool.request().query(`EXEC sp_update_jobAssigment '${body.uuidMechanic}','${body.uuidCar}','${body.entryDate}','${body.departureDate}','${body.nextService}','${body.dateNextService}','${body.mileage}'`);
     })
     .then((fields) => {
       mssql.close();
@@ -58,11 +60,15 @@ route.put("/", (req, res) => {
     });
 });
 route.delete("/:id", (req, res) => {
-  const id = req.params.id;
+  const body = req.params.id;
+  const data = body.split("_");
+  const id = data[0];
+  const idC = data[1];
+  
   new mssql.ConnectionPool(connect.config)
     .connect()
     .then((pool) => {
-      return pool.request().query(`EXEC sp_delete_jobAssigment '${id}'`);
+      return pool.request().query(`EXEC sp_delete_jobAssigment '${id}','${idC}'`);
     })
     .then((fields) => {
       mssql.close();
@@ -74,4 +80,34 @@ route.delete("/:id", (req, res) => {
       res.json({ code: 404, message: "NO SE ELIMINO EXITOSAMENTE" });
     });
 });
+
+route.get("/:item", (req, res) => {
+
+  const body = req.params.item;
+  const data = body.split("_");
+  const id = data[0];
+  const idC = data[1];
+
+console.log("aqui")
+console.log(id)
+new mssql.ConnectionPool(connect.config)
+
+.connect()
+.then((pool) => {
+  return pool.request().query(`EXEC sp_search_DetailWork '${id}','${idC}'`);
+})
+.then((fields) => {
+  mssql.close();
+  let rows = fields.recordset;
+  res.json({ code: 200, message: rows });
+})
+.catch((err) => {
+  console.log(err)
+  mssql.close();
+  res.json({ code: 404, message: {} });
+});
+});
+
+
+
 exports.ControllerJobAssigment = route;

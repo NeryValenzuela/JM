@@ -8,9 +8,7 @@
 
 </div>
 
-<div >
-  <button (click)="PrintPDF()" class="btn btn-success" >Print PDF</button>
-</div>
+
 <div class="form-group">
   <div class="row">
     <div class="col">
@@ -79,7 +77,7 @@
           <div class="form-group">
             <select [(ngModel)]="form.uuidCustumer" name="uuidCustumer" class="form-control">
               <option value="">Seleccione el cliente</option>
-              <option [value]="item.uuidCustumer" *ngFor="let item of dataSourceCustumer?.message">{{item.firstName}}</option>
+              <option [value]="item.uuidCustumer" *ngFor="let item of dataSourceCustumer?.message">{{item.firstName}} {{item.lastName}}</option>
             </select>
           </div>
           <div class="form-group">

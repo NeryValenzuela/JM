@@ -25,4 +25,5 @@ route.use("/brand", ControllerBrand.ControllerBrand);
 route.use("/job", ControllerJobAssigment.ControllerJobAssigment);
 route.use("/shoppingLog", ControllerShoppingLog.ControllerShoppingLog);
 
+
 exports.routerAdmin = route;

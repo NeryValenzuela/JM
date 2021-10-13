@@ -1,8 +1,8 @@
 <div class="form-group">
   <div class="row">
     <div class="col">
-    <!--      <button type="button" (click)="onChangeMode(null,'Guardar')" data-toggle="modal" data-target="#ModalWorkLog"
-        class="btn btn-primary btn-block">Crear Nueva Orden</button>-->
+      <button type="button" (click)="onChangeMode(null,'Guardar')" data-toggle="modal" data-target="#ModalWorkLog"
+        class="btn btn-primary btn-block">Crear Nueva Orden</button>
     </div>
   </div>
 
@@ -25,12 +25,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of dataSource?.message">
-            <th scope="row">{{item.uuidMechanic}}</th>
-            <td>{{item.uuidCar}}</td>
-            <td>{{item.uuidProduct}}</td>
+            <th scope="row">{{item.firstName}} {{item.lastName}}</th>
+            <td>{{item.brand}} {{item.line}} {{item.plate}}</td>
+            <td>{{item.product}}</td>
             <td>{{item.description}}</td>
             <td>{{item.price}}</td>
-            <td>{{item.amount}}</td>
+            <td>{{item.amountProduct}}</td>
             <td><button type="button" (click)="onChangeMode(item,'Editar')" data-toggle="modal"
                 data-target="#ModalWorkLog" class="btn btn-warning btn-block">Editar</button></td>
             <td><button type="button" (click)="onChangeMode(item,'Eliminar')"
@@ -57,13 +57,23 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <input type="text" name="uuidMechanic" class="form-control" placeholder="Mecanico" [(ngModel)]="form.uuidMechanic">
+            <select [(ngModel)]="form.uuidMechanic" name="uuidMechanic" class="form-control">
+              <option value="">Seleccione Mecanico</option>
+              <option [value]="item.uuidMechanic" *ngFor="let item of dataSourceMechanic">{{item.firstName}} {{item.lastName}}</option>
+            </select> </div>
+          <div class="form-group">
+            <select [(ngModel)]="form.uuidCar" name="uuidCar" class="form-control">
+              <option value="">Seleccione el Vehiculo</option>
+              <option [value]="item.uuidCar" *ngFor="let item of dataSourceCar">{{item.brand}} {{item.line}} {{item.plate}}</option>
+            </select>
           </div>
           <div class="form-group">
-            <input type="text" name="uuidCar" class="form-control" placeholder="Carro" [(ngModel)]="form.uuidCar">
-          </div>
-          <div class="form-group">
-            <input type="text" name="uuidProduct" class="form-control" placeholder="Producto" [(ngModel)]="form.uuidProduct">
+            <select [(ngModel)]="form.uuidProduct" name="uuidProduct" class="form-control">
+              <option value="">Seleccione el Producto</option>
+              <option [value]="item.uuidProduct" *ngFor="let item of dataSourceProduct">{{item.product}}</option>
+            </select>
+
+
           </div>
           <div class="form-group">
             <input type="text" name="description"  class="form-control" placeholder="Descripción" [(ngModel)]="form.description">
@@ -72,7 +82,7 @@
             <input type="text" name="price"  class="form-control" placeholder="Precio" [(ngModel)]="form.price">
           </div>
           <div class="form-group">
-            <input type="text" name="amount"  class="form-control" placeholder="Cantidad" [(ngModel)]="form.amount">
+            <input type="text" name="amountProduct"  class="form-control" placeholder="Cantidad" [(ngModel)]="form.amountProduct">
           </div>
         </form>
       </div>

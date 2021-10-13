@@ -25,7 +25,7 @@ route.post("/", (req, res) => {
   new mssql.ConnectionPool(connect.config)
     .connect()
     .then((pool) => {
-      return pool.request().query(`EXEC sp_create_WorkLog '${body.uuidMechanic}','${body.uuidCar}','${body.uuidProduct}','${body.description}','${body.price}','${body.amount}'`);
+      return pool.request().query(`EXEC sp_create_WorkLog '${body.uuidMechanic}','${body.uuidCar}','${body.uuidProduct}','${body.description}','${body.price}','${body.amountProduct}'`);
     })
     .then((fields) => {
       mssql.close();
@@ -42,7 +42,7 @@ route.put("/", (req, res) => {
   new mssql.ConnectionPool(connect.config)
     .connect()
     .then((pool) => {
-      return pool.request().query(`EXEC sp_update_WorkLog '${body.uuidWorkKog}','${body.uuidMechanic}','${body.uuidCar}','${body.uuidProduct}','${body.description}','${body.price}','${body.amount}'`);
+      return pool.request().query(`EXEC sp_update_WorkLog '${body.uuidWorkKog}','${body.uuidMechanic}','${body.uuidCar}','${body.uuidProduct}','${body.description}','${body.price}','${body.amountProduct}'`);
     })
     .then((fields) => {
       mssql.close();

@@ -16,7 +16,7 @@ export class JobAService {
   }
 
   create(item: any): Observable<any> {
-    debugger
+
     return this.httpClient.post<any>(this.URL, item);
   }
 
@@ -26,6 +26,10 @@ export class JobAService {
 
   delete(id: any): Observable<any> {
     return this.httpClient.delete<any>(this.URL + id);
+  }
+
+  Detail(item: any): Observable<any> {
+    return this.httpClient.get<any>(this.URL + item);
   }
 
 }

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { OrdenTrabajoService } from 'src/app/services/ordenTrabajo/orden-trabajo.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { CarService } from 'src/app/services/car/car.service';
+import { MechanicService } from 'src/app/services/mechanic/mechanic.service';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-orden-de-trabajo',
@@ -11,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 export class OrdenDeTrabajoComponent implements OnInit {
 
   dataSource: any;
+  dataSourceCar: any;
+  dataSourceMechanic: any;
+  dataSourceProduct: any;
   mode = "Guardar";
   form = {
     uuidWorkKog: "",
@@ -19,15 +25,21 @@ export class OrdenDeTrabajoComponent implements OnInit {
     uuidProduct: "",
     description: "",
     price: "",
-    amount: ""
+    amountProduct: ""
   }
 
   constructor(
     private service: OrdenTrabajoService,
+    private serviceCar: CarService,
+    private serviceMechanic: MechanicService,
+    private serviceProduct: ProductService
   ) { }
 
   ngOnInit(): void {
     this.get();
+    this.getMechanic();
+    this.getCar();
+     this.getProduct();
   }
 
   get(): void {
@@ -39,8 +51,45 @@ export class OrdenDeTrabajoComponent implements OnInit {
       }
     )
   }
+
+  getCar(): void {
+
+    this.serviceCar.get().subscribe(
+      (res) => {
+        this.dataSourceCar = res.message;
+        console.log(res)
+      }, (err) => {
+        console.log(err)
+      }
+    )
+  }
+
+  getMechanic(): void {
+    this.serviceMechanic.get().subscribe(
+      (res) => {
+        this.dataSourceMechanic = res.message;
+        console.log(res)
+      }, (err) => {
+        console.log(err)
+      }
+    )
+  }
+
+  getProduct(): void {
+    this.serviceProduct.get().subscribe(
+      (res) => {
+        this.dataSourceProduct = res.message;
+        console.log(res)
+      }, (err) => {
+        console.log(err)
+      }
+    )
+  }
+
+
+
   ngSubmit(): void {
-    if (this.form.amount !== "" && this.form.price !== "" &&
+    if (this.form.amountProduct !== "" && this.form.price !== "" &&
       this.form.description !== "" && this.form.uuidProduct !== ""
       && this.form.uuidCar !== "" && this.form.uuidMechanic !== "") {
       if (this.mode === "Guardar") {
@@ -71,7 +120,7 @@ export class OrdenDeTrabajoComponent implements OnInit {
       uuidProduct: "",
       description: "",
       price: "",
-      amount: ""
+      amountProduct: ""
     }
    // this.mode = "Guardar";
   }

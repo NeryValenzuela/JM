@@ -17,6 +17,7 @@ export class JobAComponent implements OnInit {
   dataSource: any;
   dataSourceCar: any;
   dataSourceMechanic: any;
+  dataSourceDet: any;
   mode = "Guardar";
   form = {
     uuidMechanic: "",
@@ -26,7 +27,6 @@ export class JobAComponent implements OnInit {
     nextService: "",
     dateNextService: "",
     mileage: "",
-    bonus: "",
   }
   constructor(
     private service: JobAService,
@@ -44,7 +44,7 @@ export class JobAComponent implements OnInit {
   get(): void {
     this.service.get().subscribe(
       (res) => {
-        console.log(res)
+
         this.dataSource = res;
       }, (err) => {
         console.log(err)
@@ -57,7 +57,7 @@ export class JobAComponent implements OnInit {
     this.serviceCar.get().subscribe(
       (res) => {
         this.dataSourceCar = res.message;
-        console.log(res)
+
       }, (err) => {
         console.log(err)
       }
@@ -68,7 +68,7 @@ export class JobAComponent implements OnInit {
     this.serviceMechanic.get().subscribe(
       (res) => {
         this.dataSourceMechanic = res.message;
-        console.log(res)
+
       }, (err) => {
         console.log(err)
       }
@@ -76,10 +76,10 @@ export class JobAComponent implements OnInit {
   }
 
   ngSubmit(): void {
-    debugger
-    var en = this.form.mileage !== "" &&
+    var en = this.form.entryDate !== "";
+    /*var en = this.form.mileage !== "" &&
     this.form.dateNextService !== "" &&
-    this.form.departureDate !== "" && this.form.entryDate !== "";
+    this.form.departureDate !== "" && this.form.entryDate !== "";*/
     if (en) {
       if (this.mode === "Guardar") {
         this.service.create(this.form).subscribe(
@@ -110,7 +110,7 @@ export class JobAComponent implements OnInit {
       nextService: "",
       dateNextService: "",
       mileage: "",
-      bonus: "",
+
     }
     this.mode = "Guardar";
   }
@@ -124,14 +124,15 @@ export class JobAComponent implements OnInit {
         nextService: "",
         dateNextService: "",
         mileage: "",
-        bonus: "",
+
       }
       this.mode = mode
     } else if (mode === "Editar") {
       this.form = item;
       this.mode = mode
     } else if (mode === "Eliminar") {
-      this.service.delete(item.uuidMechanic && item.uuidCar).subscribe(
+      const formDelete = item.uuidMechanic +"_"+ item.uuidCar;
+      this.service.delete(formDelete).subscribe(
         (res) => {
           alert(res.message);
           this.get();
@@ -140,6 +141,21 @@ export class JobAComponent implements OnInit {
         })
     }
   }
+
+  work(item){
+    const dataBody = item.uuidMechanic + "_" + item.uuidCar;
+    this.service.Detail(dataBody).subscribe(
+      (res) => {
+        console.log(res)
+        this.dataSourceDet = res;
+        console.log(this.dataSourceDet)
+      }, (err) => {
+        console.log(err)
+      }
+    )
+  }
+
+
 
   PrintPDF(item) {
     const pdf = new PdfMakeWrapper();
