@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DetailPDF } from 'src/app/components/job-a/job-a.component';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -28,8 +29,8 @@ export class JobAService {
     return this.httpClient.delete<any>(this.URL + id);
   }
 
-  Detail(item: any): Observable<any> {
-    return this.httpClient.get<any>(this.URL + item);
+  Detail(item: any): Observable<DetailPDF> {
+    return this.httpClient.get<DetailPDF>(this.URL + item);
   }
 
 }

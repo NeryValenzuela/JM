@@ -5,34 +5,32 @@ import { MechanicService } from 'src/app/services/mechanic/mechanic.service';
 
 // Para imprimir y generar codigo QR
 import { Img, PdfMakeWrapper, QR, Txt } from 'pdfmake-wrapper';
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 PdfMakeWrapper.setFonts(pdfFonts);
 @Component({
   selector: 'app-job-a',
   templateUrl: './job-a.component.html',
-  styleUrls: ['./job-a.component.css']
+  styleUrls: ['./job-a.component.css'],
 })
 export class JobAComponent implements OnInit {
-
   dataSource: any;
   dataSourceCar: any;
   dataSourceMechanic: any;
   dataSourceDet: any;
-  mode = "Guardar";
+  mode = 'Guardar';
   form = {
-    uuidMechanic: "",
-    uuidCar: "",
-    entryDate: "",
-    departureDate: "",
-    nextService: "",
-    dateNextService: "",
-    mileage: "",
-  }
+    uuidMechanic: '',
+    uuidCar: '',
+    entryDate: '',
+    departureDate: '',
+    nextService: '',
+    dateNextService: '',
+    mileage: '',
+  };
   constructor(
     private service: JobAService,
     private serviceCar: CarService,
     private serviceMechanic: MechanicService
-
   ) { }
 
   ngOnInit(): void {
@@ -44,128 +42,196 @@ export class JobAComponent implements OnInit {
   get(): void {
     this.service.get().subscribe(
       (res) => {
-
         this.dataSource = res;
-      }, (err) => {
-        console.log(err)
+      },
+      (err) => {
+        console.log(err);
       }
-    )
+    );
   }
 
   getCar(): void {
-
     this.serviceCar.get().subscribe(
       (res) => {
         this.dataSourceCar = res.message;
-
-      }, (err) => {
-        console.log(err)
+      },
+      (err) => {
+        console.log(err);
       }
-    )
+    );
   }
 
   getMechanic(): void {
     this.serviceMechanic.get().subscribe(
       (res) => {
         this.dataSourceMechanic = res.message;
-
-      }, (err) => {
-        console.log(err)
+      },
+      (err) => {
+        console.log(err);
       }
-    )
+    );
   }
 
   ngSubmit(): void {
-    var en = this.form.entryDate !== "";
+    var en = this.form.entryDate !== '';
     /*var en = this.form.mileage !== "" &&
     this.form.dateNextService !== "" &&
     this.form.departureDate !== "" && this.form.entryDate !== "";*/
     if (en) {
-      if (this.mode === "Guardar") {
+      if (this.mode === 'Guardar') {
         this.service.create(this.form).subscribe(
           (res) => {
             alert(res.message);
             this.get();
-          }, (err) => {
-            console.log(err)
-          })
-      } else if (this.mode === "Editar") {
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      } else if (this.mode === 'Editar') {
         this.service.update(this.form).subscribe(
           (res) => {
             alert(res.message);
             this.get();
-          }, (err) => {
-            console.log(err)
-          })
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
       }
     }
   }
 
   onReset(): void {
     this.form = {
-      uuidMechanic: "",
-      uuidCar: "",
-      entryDate: "",
-      departureDate: "",
-      nextService: "",
-      dateNextService: "",
-      mileage: "",
-
-    }
-    this.mode = "Guardar";
+      uuidMechanic: '',
+      uuidCar: '',
+      entryDate: '',
+      departureDate: '',
+      nextService: '',
+      dateNextService: '',
+      mileage: '',
+    };
+    this.mode = 'Guardar';
   }
   onChangeMode(item: any, mode: string): void {
-    if (mode === "Guardar") {
+    if (mode === 'Guardar') {
       this.form = {
-        uuidMechanic: "",
-        uuidCar: "",
-        entryDate: "",
-        departureDate: "",
-        nextService: "",
-        dateNextService: "",
-        mileage: "",
-
-      }
-      this.mode = mode
-    } else if (mode === "Editar") {
+        uuidMechanic: '',
+        uuidCar: '',
+        entryDate: '',
+        departureDate: '',
+        nextService: '',
+        dateNextService: '',
+        mileage: '',
+      };
+      this.mode = mode;
+    } else if (mode === 'Editar') {
       this.form = item;
-      this.mode = mode
-    } else if (mode === "Eliminar") {
-      const formDelete = item.uuidMechanic +"_"+ item.uuidCar;
+      this.mode = mode;
+    } else if (mode === 'Eliminar') {
+      const formDelete = item.uuidMechanic + '_' + item.uuidCar;
       this.service.delete(formDelete).subscribe(
         (res) => {
           alert(res.message);
           this.get();
-        }, (err) => {
-          console.log(err)
-        })
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     }
   }
 
-  work(item){
-    const dataBody = item.uuidMechanic + "_" + item.uuidCar;
+  work(item) {
+    const dataBody = item.uuidMechanic + '_' + item.uuidCar;
     this.service.Detail(dataBody).subscribe(
       (res) => {
-        console.log(res)
+        console.log(res);
         this.dataSourceDet = res;
-        console.log(this.dataSourceDet)
-      }, (err) => {
-        console.log(err)
+      },
+      (err) => {
+        console.log(err);
       }
-    )
+    );
   }
-
-
 
   PrintPDF(item) {
-    const pdf = new PdfMakeWrapper();
+    const newItem = item as DataPDF;
+    const dataBody = newItem.uuidMechanic + '_' + newItem.uuidCar;
+    this.service.Detail(dataBody).subscribe(
+      (res) => {
+        console.log(res);
+        const detail: MessageDetail[] = res.message;
+        const dataItem = `
+    ID Mecanico: ${newItem.uuidMechanic}
+    ID Carro: ${newItem.uuidCar}
+    Nombre: ${newItem.firstName} ${newItem.lastName}
+    Detail ID Work: ${detail[0].product}
+    `;
 
-    pdf.header('Comprobante');
+        const pdf = new PdfMakeWrapper();
+        pdf.header('Comprobante');
 
-    pdf.add(new Txt('Servicios Automotrices JM\nDetalle de servicio\n\n\n\n\n\n').fontSize(20).alignment('center').bold().decoration('underline').end);
-    pdf.add(new QR(JSON.stringify(item)).alignment('center').fit(200).end)
-    pdf.add(new Txt('\n\n\n\n\n\n\n\nGracias por tu preferencia\nWhatsapp:38065775\nTel:78224585').fontSize(15).alignment('center').bold().end);
+        pdf.add(
+          new Txt('Servicios Automotrices JM\nDetalle de servicio\n\n\n\n\n\n')
+            .fontSize(20)
+            .alignment('center')
+            .bold()
+            .decoration('underline').end
+        );
+        pdf.add(new QR(dataItem).alignment('center').fit(200).end);
+        pdf.add(
+          new Txt(
+            '\n\n\n\n\nGracias por tu preferencia\nWhatsapp:38065775\nTel:78224585'
+          )
+            .fontSize(15)
+            .alignment('center')
+            .bold().end
+        );
 
-    pdf.create().print();
+        pdf.create().print();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+
   }
+}
+
+export interface DataPDF {
+  uuidMechanic: string;
+  uuidCar: string;
+  entryDate: string;
+  departureDate: string;
+  nextService: boolean;
+  dateNextService: string;
+  mileage: string;
+  bonus: string;
+  firstName: string;
+  lastName: string;
+  brand: string;
+  line: string;
+  plate: string;
+}
+
+export interface MessageDetail {
+  uuidWorkKog: string;
+  uuidMechanic: string;
+  uuidCar: string;
+  uuidProduct: string;
+  description: string;
+  price: number;
+  amountProduct: number;
+  product: string;
+  firstName: string;
+  lastName: string;
+  brand: string;
+  line: string;
+  plate: string;
+}
+
+export interface DetailPDF {
+  message: MessageDetail[];
 }

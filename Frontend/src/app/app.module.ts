@@ -16,16 +16,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InterceptorService } from './services/interceptor/interceptor.service';
 import { MechanicComponent } from './components/mechanic/mechanic.component';
-import { WizardOrdenComponent } from './components/wizard-orden/wizard-orden.component';
 import { CarComponent } from './components/car/car.component';
 import { BrandComponent } from './components/brand/brand.component';
-import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { LineComponent } from './components/line/line.component';
 import { JobAComponent } from './components/job-a/job-a.component';
 
-const ngWizardConfig: NgWizardConfig = {
-  theme: THEME.default
-};
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +32,6 @@ const ngWizardConfig: NgWizardConfig = {
     InventarioComponent,
     LoginComponent,
     MechanicComponent,
-    WizardOrdenComponent,
     CarComponent,
     BrandComponent,
     LineComponent,
@@ -53,7 +47,6 @@ const ngWizardConfig: NgWizardConfig = {
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgWizardModule.forRoot(ngWizardConfig)
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
