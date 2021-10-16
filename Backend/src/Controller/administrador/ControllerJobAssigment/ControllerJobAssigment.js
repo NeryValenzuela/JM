@@ -88,8 +88,7 @@ route.get("/:item", (req, res) => {
   const id = data[0];
   const idC = data[1];
 
-console.log("aqui")
-console.log(id)
+
 new mssql.ConnectionPool(connect.config)
 
 .connect()

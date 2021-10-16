@@ -105,13 +105,4 @@ export class LineComponent implements OnInit {
   }
 
 
-  PrintPDF() {
-    const pdf = new PdfMakeWrapper();
-
-    pdf.add(new Txt('Servicios Automotrices JM\n\nDetalle de servicio\n\n').fontSize(20).alignment('center').bold().decoration('underline').end);
-    pdf.add(new QR('this.dataSource').alignment('center').fit(200).end)
-    pdf.create().print();
-  }
-
-
 }

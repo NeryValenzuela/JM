@@ -164,17 +164,26 @@ export class JobAComponent implements OnInit {
         console.log(res);
         const detail: MessageDetail[] = res.message;
         const dataItem = `
-    ID Mecanico: ${newItem.uuidMechanic}
-    ID Carro: ${newItem.uuidCar}
-    Nombre: ${newItem.firstName} ${newItem.lastName}
-    Detail ID Work: ${detail[0].product}
+
+    Fecha de entrada: ${newItem.entryDate}
+    Fecha de salida: ${newItem.departureDate}
+    Millage: ${newItem.mileage}
+    Vehiculo: ${newItem.brand} ${newItem.line} ${newItem.plate}
+    Nombre del Mecanico: ${newItem.firstName} ${newItem.lastName}
+    Productos utilizados:
+    ${detail[0].product} Precio: ${detail[0].price} Cantidad: ${detail[0].amountProduct}
+    ${detail[1].product} Precio: ${detail[1].price} Cantidad: ${detail[1].amountProduct}
+    ${detail[2].product} Precio: ${detail[2].price} Cantidad: ${detail[2].amountProduct}
+Fecha proximo servicio: ${newItem.dateNextService}
+
+    Gracias por su preferencia
     `;
 
         const pdf = new PdfMakeWrapper();
         pdf.header('Comprobante');
 
         pdf.add(
-          new Txt('Servicios Automotrices JM\nDetalle de servicio\n\n\n\n\n\n')
+          new Txt('Servicios Automotrices JM\nDetalle de servicio\n\n\n\nEscanear codigo para verificar el trabajo que se realizo')
             .fontSize(20)
             .alignment('center')
             .bold()
@@ -183,7 +192,7 @@ export class JobAComponent implements OnInit {
         pdf.add(new QR(dataItem).alignment('center').fit(200).end);
         pdf.add(
           new Txt(
-            '\n\n\n\n\nGracias por tu preferencia\nWhatsapp:38065775\nTel:78224585'
+            '\n\nGracias por tu preferencia\nWhatsapp:38065775\nTel:78224585'
           )
             .fontSize(15)
             .alignment('center')
@@ -196,7 +205,6 @@ export class JobAComponent implements OnInit {
         console.log(err);
       }
     );
-
   }
 }
 

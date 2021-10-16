@@ -16,7 +16,6 @@
             <th scope="col">Marca</th>
             <th scope="col">Linea</th>
             <th scope="col">Editar</th>
-            <th scope='col'>Imprimir</th>
             <th scope="col">Eliminar</th>
           </tr>
         </thead>
@@ -24,7 +23,6 @@
           <tr *ngFor="let item of dataSource?.message">
             <th scope="row">{{item.brand}}</th>
             <td>{{item.line}}</td>
-            <td><button (click)="PrintPDF()" class="btn btn-success" >Print PDF</button></td>
             <td><button type="button" (click)="onChangeMode(item,'Editar')" data-toggle="modal"
                 data-target="#ModalLine" class="btn btn-warning btn-block">Editar</button></td>
             <td><button type="button" (click)="onChangeMode(item,'Eliminar')"
