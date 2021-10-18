@@ -20,6 +20,7 @@ import { CarComponent } from './components/car/car.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { LineComponent } from './components/line/line.component';
 import { JobAComponent } from './components/job-a/job-a.component';
+import { AuthGuardGuard } from './auth-guard.guard';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { JobAComponent } from './components/job-a/job-a.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [{
+  providers: [AuthGuardGuard, {
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptorService,
     multi: true

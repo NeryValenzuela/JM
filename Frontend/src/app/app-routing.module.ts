@@ -13,27 +13,28 @@ import { LineComponent } from './components/line/line.component';
 import { CarComponent } from './components/car/car.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { JobAComponent } from './components/job-a/job-a.component';
+import { AuthGuardGuard } from './auth-guard.guard';
+
 
 
 const routes: Routes = [
-
-  {path:'',component:LoginComponent},
-  {path:'login',component:LoginComponent},
-  {path:'clientes',component:CLientesComponent},
-  {path:'orden-de-trabajo',component:OrdenDeTrabajoComponent},
-  {path:'proveedores',component:ProveedoresComponent},
-  {path:'finanzas',component:FinanzasComponent},
-  {path:'product',component:InventarioComponent},
-  {path:'nav',component:NavComponent},
-  {path:'mechanic',component:MechanicComponent},
-  {path:'line',component:LineComponent},
-  {path:'car',component:CarComponent},
-  {path:'brand',component:BrandComponent},
-  {path:'job',component:JobAComponent},
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'clientes', component: CLientesComponent, canActivate: [AuthGuardGuard] },
+  { path: 'orden-de-trabajo', component: OrdenDeTrabajoComponent, canActivate: [AuthGuardGuard] },
+  { path: 'proveedores', component: ProveedoresComponent, canActivate: [AuthGuardGuard] },
+  { path: 'finanzas', component: FinanzasComponent, canActivate: [AuthGuardGuard] },
+  { path: 'product', component: InventarioComponent, canActivate: [AuthGuardGuard] },
+  { path: 'nav', component: NavComponent, canActivate: [AuthGuardGuard] },
+  { path: 'mechanic', component: MechanicComponent, canActivate: [AuthGuardGuard] },
+  { path: 'line', component: LineComponent, canActivate: [AuthGuardGuard] },
+  { path: 'car', component: CarComponent, canActivate: [AuthGuardGuard] },
+  { path: 'brand', component: BrandComponent, canActivate: [AuthGuardGuard] },
+  { path: 'job', component: JobAComponent, canActivate: [AuthGuardGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

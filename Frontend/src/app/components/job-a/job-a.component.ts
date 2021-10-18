@@ -147,7 +147,7 @@ export class JobAComponent implements OnInit {
     const dataBody = item.uuidMechanic + '_' + item.uuidCar;
     this.service.Detail(dataBody).subscribe(
       (res) => {
-        console.log(res);
+
         this.dataSourceDet = res;
       },
       (err) => {

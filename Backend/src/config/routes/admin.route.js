@@ -10,6 +10,7 @@ const ControllerLine = require("../../Controller/administrador/ControllerLine/Co
 const ControllerBrand = require("../../Controller/administrador/ControllerBrand/ControllerBrand");
 const ControllerJobAssigment = require("../../Controller/administrador/ControllerJobAssigment/ControllerJobAssigment");
 const ControllerShoppingLog = require("../../Controller/administrador/ControllerShoppingLog/ControllerShoppingLog");
+const ControllerSession = require("../../Controller/administrador/ControllerSession/Controller");
 
 const route = express.Router();
 
@@ -24,6 +25,7 @@ route.use("/line", ControllerLine.ControllerLine);
 route.use("/brand", ControllerBrand.ControllerBrand);
 route.use("/job", ControllerJobAssigment.ControllerJobAssigment);
 route.use("/shoppingLog", ControllerShoppingLog.ControllerShoppingLog);
+route.use("/login", ControllerSession.ControllerSession);
 
 
 exports.routerAdmin = route;

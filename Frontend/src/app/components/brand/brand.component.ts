@@ -25,7 +25,7 @@ export class BrandComponent implements OnInit {
   get(): void {
     this.service.get().subscribe(
       (res) => {
-        console.log(res)
+
         this.dataSource = res;
       }, (err) => {
         console.log(err)

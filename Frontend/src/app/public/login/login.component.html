@@ -1,21 +1,23 @@
 <div class="row">
   <div class="col-md-4 mx-auto">
     <div class="card">
+
       <div class="card-header">
-        <p>Ingresar</p>
+        <img class="mb-4" src="/Frontend/src/assets/img/JM.jpg" alt="a" width="200">
+        <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesion</h1>
       </div>
       <div class="card-body">
         <form (ngSubmit)="onLogin()" #form="ngForm">
           <div class="form-group">
-              <input type="text" name="usuario" placeholder="usuario" required autofocus class="form-control"
-              [(ngModel)]="user.nombre">
+            <input type="text" name="usuario" placeholder="usuario" required autofocus class="form-control"
+              [(ngModel)]="user.userSystem">
 
-            </div>
+          </div>
           <div class="form-group">
-             <input type="password" name="password" placeholder="password" required  class="form-control"
+            <input type="password" name="password" placeholder="contraseña" required class="form-control"
               [(ngModel)]="user.password">
           </div>
-        <button type="submit" class="btn btn-danger btn-block">Ingresar</button>
+          <button type="submit" class="btn btn-danger btn-block">Ingresar</button>
         </form>
       </div>
     </div>

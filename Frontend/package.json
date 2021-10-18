@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~11.2.8",
     "@angular/router": "~11.2.8",
     "@ng-select/ng-select": "^7.2.0",
+    "bootstrap-icons": "^1.6.0",
     "ng-wizard": "^1.3.0",
     "pdfmake": "^0.2.2",
     "pdfmake-wrapper": "^2.1.2",

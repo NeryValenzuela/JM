@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { SecurityService } from 'src/app/services/security.service';
 
 @Component({
@@ -10,26 +11,30 @@ import { SecurityService } from 'src/app/services/security.service';
 export class LoginComponent implements OnInit {
 
   user = {
-    nombre: '',
+    userSystem: '',
     password: ''
   }
 
   constructor(
-    private security: SecurityService,
+    private auth: AuthService,
     private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  onLogin(){
-    this.security.login(this.user).subscribe(
-    (res) => {
+  onLogin() {
+    this.auth.access(this.user).subscribe(
+      (res) => {
+        if (res.code === 200) {
+          localStorage.setItem('token', res.message.token);
+          this.router.navigate(['clientes']);
+        }else{
+          alert(res.message);
+        }
 
-      localStorage.setItem('token', res.token);
-      this.router.navigate(['clientes']);
-    }, (err)    => {
-      console.log(err);
-    }
+      }, (err) => {
+        console.log(err);
+      }
     );
   }
 }

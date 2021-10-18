@@ -22,14 +22,14 @@ export class MechanicComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.form)
+
     this.get();
   }
 
   get(): void {
     this.service.get().subscribe(
       (res) => {
-        console.log(res)
+
         this.dataSource = res;
       }, (err) => {
         console.log(err)
@@ -41,7 +41,7 @@ export class MechanicComponent implements OnInit {
       this.form.lastName !== "" &&
       this.form.firstName !== "") {
       if (this.mode === "Guardar") {
-        console.log(this.form)
+       // console.log(this.form)
         this.service.create(this.form).subscribe(
           (res) => {
             alert(res.message);

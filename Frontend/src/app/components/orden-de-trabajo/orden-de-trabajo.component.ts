@@ -57,7 +57,7 @@ export class OrdenDeTrabajoComponent implements OnInit {
     this.serviceCar.get().subscribe(
       (res) => {
         this.dataSourceCar = res.message;
-        console.log(res)
+
       }, (err) => {
         console.log(err)
       }
@@ -68,7 +68,7 @@ export class OrdenDeTrabajoComponent implements OnInit {
     this.serviceMechanic.get().subscribe(
       (res) => {
         this.dataSourceMechanic = res.message;
-        console.log(res)
+
       }, (err) => {
         console.log(err)
       }
@@ -79,7 +79,7 @@ export class OrdenDeTrabajoComponent implements OnInit {
     this.serviceProduct.get().subscribe(
       (res) => {
         this.dataSourceProduct = res.message;
-        console.log(res)
+
       }, (err) => {
         console.log(err)
       }
