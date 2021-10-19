@@ -174,7 +174,7 @@ export class JobAComponent implements OnInit {
     ${detail[0].product} Precio: ${detail[0].price} Cantidad: ${detail[0].amountProduct}
     ${detail[1].product} Precio: ${detail[1].price} Cantidad: ${detail[1].amountProduct}
     ${detail[2].product} Precio: ${detail[2].price} Cantidad: ${detail[2].amountProduct}
-Fecha proximo servicio: ${newItem.dateNextService}
+    Fecha proximo servicio: ${newItem.dateNextService}
 
     Gracias por su preferencia
     `;
@@ -183,11 +183,17 @@ Fecha proximo servicio: ${newItem.dateNextService}
         pdf.header('Comprobante');
 
         pdf.add(
-          new Txt('Servicios Automotrices JM\nDetalle de servicio\n\n\n\nEscanear codigo para verificar el trabajo que se realizo')
+          new Txt('Servicios Automotrices JM\nDetalle de servicio\n\n\n\n')
             .fontSize(20)
             .alignment('center')
             .bold()
             .decoration('underline').end
+        );
+        pdf.add(
+          new Txt('Escanear codigo QR para verificar el trabajo que se realizo\n\n')
+            .fontSize(15)
+            .alignment('center')
+            .bold().end
         );
         pdf.add(new QR(dataItem).alignment('center').fit(200).end);
         pdf.add(

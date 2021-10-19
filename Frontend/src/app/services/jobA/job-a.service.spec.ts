@@ -24,11 +24,11 @@ describe('JobAService', () => {
     it('makes expected calls', () => {
       const httpTestingController = TestBed.inject(HttpTestingController);
       service.get().subscribe(res => {
-       /* expect(res).toEqual();*/
+        expect(res).toEqual('any');
       });
       const req = httpTestingController.expectOne('HTTP_ROUTE_GOES_HERE');
       expect(req.request.method).toEqual('GET');
-     /* req.flush();*/
+     req.flush('any');
       httpTestingController.verify();
     });
   });

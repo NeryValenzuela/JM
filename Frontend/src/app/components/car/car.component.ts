@@ -50,7 +50,7 @@ export class CarComponent implements OnInit {
   get(): void {
     this.service.get().subscribe(
       (res) => {
-        console.log(res)
+
         this.dataSource = res;
       }, (err) => {
         console.log(err)
@@ -63,7 +63,7 @@ export class CarComponent implements OnInit {
     this.serviceBrand.get().subscribe(
       (res) => {
         this.dataSourceBrand = res;
-        console.log(res)
+
       }, (err) => {
         console.log(err)
       }
@@ -75,7 +75,7 @@ export class CarComponent implements OnInit {
     this.serviceLine.get().subscribe(
       (res) => {
         this.dataSourceLine = res;
-        console.log(res)
+
       }, (err) => {
         console.log(err)
       }
@@ -86,7 +86,7 @@ export class CarComponent implements OnInit {
   getCustumer(): void {
     this.serviceCustumer.get().subscribe(
       (res) => {
-        console.log(res)
+
         this.dataSourceCustumer = res;
       }, (err) => {
         console.log(err)
