@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - run: touch server-key.pem > ${{secrets.KEY_PRIVATE}}
+      - run: echo "${{secrets.KEY_PRIVATE}}" > server-key.pem
       - run: chmod 400 server-key.pem
       - run: ssh -i "server-key.pem" ubuntu@ec2-52-14-122-20.us-east-2.compute.amazonaws.com
       - run: ls
