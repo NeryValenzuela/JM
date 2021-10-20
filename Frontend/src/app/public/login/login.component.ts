@@ -20,6 +20,9 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem("token") !== null) {
+      this.router.navigate(['clientes']);
+    }
   }
 
   onLogin() {
@@ -28,7 +31,7 @@ export class LoginComponent implements OnInit {
         if (res.code === 200) {
           localStorage.setItem('token', res.message.token);
           this.router.navigate(['clientes']);
-        }else{
+        } else {
           alert(res.message);
         }
 
