@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MechanicService } from 'src/app/services/mechanic/mechanic.service';
 
 @Component({
-  selector: 'app-mechanic',
-  templateUrl: './mechanic.component.html',
-  styleUrls: ['./mechanic.component.css']
+  selector: 'app-workers',
+  templateUrl: './workers.component.html',
+  styleUrls: ['./workers.component.css']
 })
-export class MechanicComponent implements OnInit {
+export class WorkersComponent implements OnInit {
 
   dataSource: any;
   mode = "Guardar";

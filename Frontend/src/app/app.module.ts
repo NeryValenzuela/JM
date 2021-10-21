@@ -15,12 +15,12 @@ import { LoginComponent } from './public/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InterceptorService } from './services/interceptor/interceptor.service';
-import { MechanicComponent } from './components/mechanic/mechanic.component';
 import { CarComponent } from './components/car/car.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { LineComponent } from './components/line/line.component';
 import { JobAComponent } from './components/job-a/job-a.component';
 import { AuthGuardGuard } from './auth-guard.guard';
+import { WorkersComponent } from './components/workers/workers.component';
 
 @NgModule({
   declarations: [
@@ -32,11 +32,11 @@ import { AuthGuardGuard } from './auth-guard.guard';
     ProveedoresComponent,
     InventarioComponent,
     LoginComponent,
-    MechanicComponent,
     CarComponent,
     BrandComponent,
     LineComponent,
     JobAComponent,
+    WorkersComponent,
 
 
 

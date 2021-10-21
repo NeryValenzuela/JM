@@ -8,12 +8,12 @@ import { LoginComponent } from './public/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NavComponent } from './nav/nav.component';
-import { MechanicComponent } from './components/Mechanic/Mechanic.component';
 import { LineComponent } from './components/line/line.component';
 import { CarComponent } from './components/car/car.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { JobAComponent } from './components/job-a/job-a.component';
 import { AuthGuardGuard } from './auth-guard.guard';
+import { WorkersComponent } from './components/workers/workers.component';
 
 
 
@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'finanzas', component: FinanzasComponent, canActivate: [AuthGuardGuard] },
   { path: 'product', component: InventarioComponent, canActivate: [AuthGuardGuard] },
   { path: 'nav', component: NavComponent, canActivate: [AuthGuardGuard] },
-  { path: 'mechanic', component: MechanicComponent, canActivate: [AuthGuardGuard] },
+  { path: 'mechanic', component: WorkersComponent, canActivate: [AuthGuardGuard] },
   { path: 'line', component: LineComponent, canActivate: [AuthGuardGuard] },
   { path: 'car', component: CarComponent, canActivate: [AuthGuardGuard] },
   { path: 'brand', component: BrandComponent, canActivate: [AuthGuardGuard] },
