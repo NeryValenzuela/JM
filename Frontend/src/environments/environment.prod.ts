@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  urlbase:"http:localhost:3000/admin/"
+  urlbase:"http://165.227.167.80:4000/admin/"
 };
