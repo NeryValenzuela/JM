@@ -2,7 +2,6 @@
 name: BACKEND server
 on:
   pull_request:
-  push:
     branches: [main]
     types: [closed]
      paths:
