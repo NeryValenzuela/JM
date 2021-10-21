@@ -1,0 +1,36 @@
+
+name: BACKEND server
+on:
+  pull_request:
+  push:
+    branches: [main]
+    types: [closed]
+     paths:
+      - "Backend/**"
+
+
+jobs:
+  integrate:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: docker login -u ${{secrets.USERNAME_CANISTER}} -p ${{secrets.PASSWORD_CANISTER}} cloud.canister.io:5000
+      - run: cd Backend && docker build -t "cloud.canister.io:5000/nv47/backend:latest" .
+      - run: docker push cloud.canister.io:5000/nv47/backend:latest
+      - name: andrewtwydell/ssh
+        uses: AndrewTwydell/ssh-workflow@1.0.0
+        with:
+          # SSH Host
+          host: ${{secrets.SSH_HOST}}
+          # User name
+          user: ${{secrets.SSH_USER}}
+          # User Password
+          password: ${{secrets.SSH_PASS}}
+          # Script to Run
+          script: |
+            docker login -u ${{secrets.USERNAME_CANISTER}} -p ${{secrets.PASSWORD_CANISTER}} cloud.canister.io:5000
+            docker ps -a -q --filter "name=backapp" | grep -q . && docker stop backapp && docker rm -fv backapp && docker image rm cloud.canister.io:5000/nv47/backend:latest || echo ""
+            docker run --name backapp -p "3000:3000" -e "HASH_TOKEN=CPSkNnZiHbfSp3a9Yd8pcPdYD5vfYndDqRwrh3uK6c9AmjEfrZWRu4LuMfZ2rjfLLziGahDYAZCd78Yw2waN8hyS946GFGfuSwuZ3kwtijWU5B8BgSRdtce4vY5XFwzM" -e "user=sa" -e "password=EfZHc0yiE6FpgGSO" -e "server=165.227.167.80" -e "database=ServiciosJM" -d cloud.canister.io:5000/nv47/backend:latest
+            exit
