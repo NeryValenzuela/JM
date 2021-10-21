@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: docker login -u ${{secrets.USERNAME_CANISTER}} -p ${{secrets.PASSWORD_CANISTER}} cloud.canister.io:5000
-      - run: cd Frontend && npm run build && docker build -t "cloud.canister.io:5000/nv47/frontend:latest" .
+      - run: cd Frontend && npm install && npm run build && docker build -t "cloud.canister.io:5000/nv47/frontend:latest" .
       - run: docker push cloud.canister.io:5000/nv47/frontend:latest
       - name: andrewtwydell/ssh
         uses: AndrewTwydell/ssh-workflow@1.0.0
