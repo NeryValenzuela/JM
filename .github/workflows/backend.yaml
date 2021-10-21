@@ -31,5 +31,5 @@ jobs:
           script: |
             docker login -u ${{secrets.USERNAME_CANISTER}} -p ${{secrets.PASSWORD_CANISTER}} cloud.canister.io:5000
             docker ps -a -q --filter "name=backapp" | grep -q . && docker stop backapp && docker rm -fv backapp && docker image rm cloud.canister.io:5000/nv47/backend:latest || echo ""
-            docker run --name backapp -p "3000:3000" -e "HASH_TOKEN=CPSkNnZiHbfSp3a9Yd8pcPdYD5vfYndDqRwrh3uK6c9AmjEfrZWRu4LuMfZ2rjfLLziGahDYAZCd78Yw2waN8hyS946GFGfuSwuZ3kwtijWU5B8BgSRdtce4vY5XFwzM" -e "user=sa" -e "password=EfZHc0yiE6FpgGSO" -e "server=165.227.167.80" -e "database=ServiciosJM" -d cloud.canister.io:5000/nv47/backend:latest
+            docker run --name backapp -p "4000:3000" -e "HASH_TOKEN=CPSkNnZiHbfSp3a9Yd8pcPdYD5vfYndDqRwrh3uK6c9AmjEfrZWRu4LuMfZ2rjfLLziGahDYAZCd78Yw2waN8hyS946GFGfuSwuZ3kwtijWU5B8BgSRdtce4vY5XFwzM" -e "user=sa" -e "password=EfZHc0yiE6FpgGSO" -e "server=165.227.167.80" -e "database=ServiciosJM" -d cloud.canister.io:5000/nv47/backend:latest
             exit
