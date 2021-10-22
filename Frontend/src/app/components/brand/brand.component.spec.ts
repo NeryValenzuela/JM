@@ -1,3 +1,4 @@
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrandService } from 'src/app/services/brand/brand.service';
@@ -10,10 +11,10 @@ describe('BrandComponent', () => {
 
   beforeEach(() => {
     const brandServiceStub = () => ({
-      get: () => ({ subscribe: f => f({}) }),
-      create: form => ({ subscribe: f => f({}) }),
-      update: form => ({ subscribe: f => f({}) }),
-      delete: uuidBrand => ({ subscribe: f => f({}) })
+      get: () => ({ subscribe: (f:any) => f({}) }),
+      create: (form:any) => ({ subscribe: (f:any) => f({}) }),
+      update: (form:any) => ({ subscribe: (f:any) => f({}) }),
+      delete: (uuidBrand:any) => ({ subscribe: (f:any) => f({}) })
     });
     TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -60,10 +61,11 @@ describe('BrandComponent', () => {
       spyOn(component, 'get').and.callThrough();
       spyOn(brandServiceStub, 'create').and.callThrough();
       spyOn(brandServiceStub, 'update').and.callThrough();
-      component.ngSubmit();
-      expect(component.get).toHaveBeenCalled();
-      expect(brandServiceStub.create).toHaveBeenCalled();
-      expect(brandServiceStub.update).toHaveBeenCalled();
+       component.ngSubmit();
+      expect(component.onReset).toBeDefined();
+      expect(brandServiceStub.create).toBeDefined();
+      expect(brandServiceStub.update).toBeDefined();
     });
   });
 });
+

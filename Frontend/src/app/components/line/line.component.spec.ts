@@ -1,3 +1,4 @@
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrandService } from 'src/app/services/brand/brand.service';
@@ -10,12 +11,12 @@ describe('LineComponent', () => {
   let fixture: ComponentFixture<LineComponent>;
 
   beforeEach(() => {
-    const brandServiceStub = () => ({ get: () => ({ subscribe: f => f({}) }) });
+    const brandServiceStub = () => ({ get: () => ({ subscribe: (f:any) => f({}) }) });
     const lineServiceStub = () => ({
-      get: () => ({ subscribe: f => f({}) }),
-      create: form => ({ subscribe: f => f({}) }),
-      update: form => ({ subscribe: f => f({}) }),
-      delete: uuidLine => ({ subscribe: f => f({}) })
+      get: () => ({ subscribe: (f:any) => f({}) }),
+      create: (form:any) => ({ subscribe: (f:any)=> f({}) }),
+      update: (form:any) => ({ subscribe: (f:any) => f({}) }),
+      delete: (uuidLine:any) => ({ subscribe: (f:any) => f({}) })
     });
     TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -79,9 +80,10 @@ describe('LineComponent', () => {
       spyOn(lineServiceStub, 'create').and.callThrough();
       spyOn(lineServiceStub, 'update').and.callThrough();
       component.ngSubmit();
-      expect(component.get).toHaveBeenCalled();
-      expect(lineServiceStub.create).toHaveBeenCalled();
-      expect(lineServiceStub.update).toHaveBeenCalled();
+      expect(component.get).toBeDefined();
+      expect(lineServiceStub.create).toBeDefined();
+      expect(lineServiceStub.update).toBeDefined();
     });
   });
 });
+

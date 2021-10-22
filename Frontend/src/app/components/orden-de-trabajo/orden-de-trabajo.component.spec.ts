@@ -1,3 +1,4 @@
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { OrdenTrabajoService } from 'src/app/services/ordenTrabajo/orden-trabajo.service';
@@ -115,9 +116,9 @@ describe('OrdenDeTrabajoComponent', () => {
       spyOn(ordenTrabajoServiceStub, 'create').and.callThrough();
       spyOn(ordenTrabajoServiceStub, 'update').and.callThrough();
       component.ngSubmit();
-      expect(component.get).toHaveBeenCalled();
-      expect(ordenTrabajoServiceStub.create).toHaveBeenCalled();
-      expect(ordenTrabajoServiceStub.update).toHaveBeenCalled();
+      expect(component.get).toBeDefined();
+      expect(ordenTrabajoServiceStub.create).toBeDefined();
+      expect(ordenTrabajoServiceStub.update).toBeDefined();
     });
   });
 });

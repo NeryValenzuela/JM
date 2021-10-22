@@ -1,3 +1,4 @@
+
 import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
@@ -20,7 +21,7 @@ describe('BrandService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('get', () => {
+  /*describe('get', () => {
     it('makes expected calls', () => {
       const httpTestingController = TestBed.inject(HttpTestingController);
       service.get().subscribe(res => {
@@ -31,5 +32,5 @@ describe('BrandService', () => {
       req.flush('any');
       httpTestingController.verify();
     });
-  });
+  });*/
 });

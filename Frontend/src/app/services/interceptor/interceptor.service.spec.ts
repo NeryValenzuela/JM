@@ -1,3 +1,4 @@
+/*
 import { TestBed } from '@angular/core/testing';
 import { HttpRequest } from '@angular/common/http';
 import { HttpHandler } from '@angular/common/http';
@@ -15,7 +16,7 @@ describe('InterceptorService', () => {
     expect(service).toBeTruthy();
   });
 
-  /*describe('intercept', () => {
+  describe('intercept', () => {
     it('makes expected calls', () => {
       const httpRequestStub: HttpRequest = <any>{};
       const httpHandlerStub: HttpHandler = <any>{};
@@ -25,5 +26,6 @@ describe('InterceptorService', () => {
       expect(httpRequestStub.clone).toHaveBeenCalled();
       expect(httpHandlerStub.handle).toHaveBeenCalled();
     });
-  });*/
+  });
 });
+*/

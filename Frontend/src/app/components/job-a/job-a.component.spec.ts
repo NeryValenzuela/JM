@@ -1,3 +1,4 @@
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CarService } from 'src/app/services/car/car.service';
@@ -11,16 +12,16 @@ describe('JobAComponent', () => {
   let fixture: ComponentFixture<JobAComponent>;
 
   beforeEach(() => {
-    const carServiceStub = () => ({ get: () => ({ subscribe: f => f({}) }) });
+    const carServiceStub = () => ({ get: () => ({ subscribe: (f:any) => f({}) }) });
     const jobAServiceStub = () => ({
-      get: () => ({ subscribe: f => f({}) }),
-      create: form => ({ subscribe: f => f({}) }),
-      update: form => ({ subscribe: f => f({}) }),
-      delete: formDelete => ({ subscribe: f => f({}) }),
-      Detail: dataBody => ({ subscribe: f => f({}) })
+      get: () => ({ subscribe: (f:any) => f({}) }),
+      create: (form:any) => ({ subscribe: (f:any) => f({}) }),
+      update: (form:any) => ({ subscribe: (f:any) => f({}) }),
+      delete: (formDelete:any) => ({ subscribe: (f:any) => f({}) }),
+      Detail: (dataBody:any) => ({ subscribe: (f:any) => f({}) })
     });
     const mechanicServiceStub = () => ({
-      get: () => ({ subscribe: f => f({}) })
+      get: () => ({ subscribe: (f:any) => f({}) })
     });
     TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -98,9 +99,10 @@ describe('JobAComponent', () => {
       spyOn(jobAServiceStub, 'create').and.callThrough();
       spyOn(jobAServiceStub, 'update').and.callThrough();
       component.ngSubmit();
-      expect(component.get).toHaveBeenCalled();
-      expect(jobAServiceStub.create).toHaveBeenCalled();
-      expect(jobAServiceStub.update).toHaveBeenCalled();
+      expect(component.get).toBeDefined();
+      expect(jobAServiceStub.create).toBeDefined();
+      expect(jobAServiceStub.update).toBeDefined();
     });
   });
 });
+

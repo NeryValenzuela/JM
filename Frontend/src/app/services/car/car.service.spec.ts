@@ -20,7 +20,7 @@ describe('CarService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('get', () => {
+  /*describe('get', () => {
     it('makes expected calls', () => {
       const httpTestingController = TestBed.inject(HttpTestingController);
       service.get().subscribe(res => {
@@ -31,5 +31,6 @@ describe('CarService', () => {
       req.flush('any');
       httpTestingController.verify();
     });
-  });
+  });*/
 });
+

@@ -1,3 +1,4 @@
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CustumerService } from 'src/app/services/custumer/custumer.service';
@@ -10,10 +11,10 @@ describe('CLientesComponent', () => {
 
   beforeEach(() => {
     const custumerServiceStub = () => ({
-      get: () => ({ subscribe: f => f({}) }),
-      create: form => ({ subscribe: f => f({}) }),
-      update: form => ({ subscribe: f => f({}) }),
-      delete: uuidCustumer => ({ subscribe: f => f({}) })
+      get: () => ({ subscribe: (f:any) => f({}) }),
+      create: (form:any) => ({ subscribe: (f:any) => f({}) }),
+      update: (form:any) => ({ subscribe: (f:any) => f({}) }),
+      delete: (uuidCustumer:any) => ({ subscribe: (f:any) => f({}) })
     });
     TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -61,9 +62,9 @@ describe('CLientesComponent', () => {
       spyOn(custumerServiceStub, 'create').and.callThrough();
       spyOn(custumerServiceStub, 'update').and.callThrough();
       component.ngSubmit();
-      expect(component.get).toHaveBeenCalled();
-      expect(custumerServiceStub.create).toHaveBeenCalled();
-      expect(custumerServiceStub.update).toHaveBeenCalled();
+      expect(component.onReset).toBeDefined();
+      expect(custumerServiceStub.create).toBeDefined();
+      expect(custumerServiceStub.update).toBeDefined();
     });
   });
 });

@@ -17,7 +17,7 @@
             <th scope="col">Mecanico</th>
             <th scope="col">Fecha de entrada</th>
             <th scope="col">Fecha de salida</th>
-            <th scope="col">Proximo Servicio v/f</th>
+
             <th scope="col">Fecha Proximo Servicio</th>
             <th scope="col">Millage</th>
             <th scope="col">Detalle</th>
@@ -32,7 +32,7 @@
             <td>{{item.firstName}} {{item.lastName}}</td>
             <td>{{item.entryDate}}</td>
             <td>{{item.departureDate}}</td>
-            <td>{{item.nextService}}</td>
+
             <td>{{item.dateNextService}}</td>
             <td>{{item.mileage}}</td>
             <!--Boton detalles-->
@@ -116,18 +116,22 @@
             <input type="date" name="entryDate" class="form-control" placeholder="Fecha de ingreso"
               [(ngModel)]="form.entryDate">
           </div>
+          Fecha de salida:
           <div class="form-group">
             <input type="date" name="departureDate" class="form-control" placeholder="Fecha de salida"
               [(ngModel)]="form.departureDate">
           </div>
+          Requiere proximo Servicio:
           <div class="form-group">
             <input type="bit" name="nextService" class="form-control" placeholder="Proximo Servicio V/F"
               [(ngModel)]="form.nextService">
           </div>
+          Fecha de Proximo Servicio
           <div class="form-group">
             <input type="date" name="dateNextService" class="form-control" placeholder="Fecha Proximo Servicio"
               [(ngModel)]="form.dateNextService">
           </div>
+          Millage del Vehiculo:
           <div class="form-group">
             <input type="int" name="mileage" class="form-control" placeholder="Millage" [(ngModel)]="form.mileage">
           </div>
